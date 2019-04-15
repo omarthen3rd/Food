@@ -36,6 +36,9 @@
 	</array>
 	<key>UIAppFonts</key>
 	<array>
+		<string>FontAwesome5_Solid.ttf</string>
+		<string>FontAwesome5_Regular.ttf</string>
+		<string>FontAwesome5_Brands.ttf</string>
 		<string>Merriweather-Light.ttf</string>
 		<string>Merriweather-Regular.ttf</string>
 		<string>Merriweather-Bold.ttf</string>

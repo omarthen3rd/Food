@@ -18,8 +18,10 @@ class Recipe {
     var tags: String
     var instructions: String
     var ingredients: [String: String]
+    var website: URL?
+    var video: URL?
     
-    init(id: String, image: UIImage, name: String, category: String, area: String, tags: String, instructions: String, ingredients: [String: String]) {
+    init(id: String, image: UIImage, name: String, category: String, area: String, tags: String, instructions: String, ingredients: [String: String], website: URL, video: URL) {
         
         self.id = id
         self.image = image
@@ -29,7 +31,23 @@ class Recipe {
         self.tags = tags
         self.instructions = instructions
         self.ingredients = ingredients
+        self.website = website
+        self.video = video
         
+    }
+    
+}
+
+class RecipePreview {
+    
+    var id: String
+    var image: UIImage
+    var name: String
+    
+    init(id: String, image: UIImage, name: String) {
+        self.id = id
+        self.image = image
+        self.name = name
     }
     
 }
