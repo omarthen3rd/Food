@@ -61,6 +61,13 @@ class CategoryCollectionCell: UICollectionViewCell {
 class CategoriesCollectionController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     var categories = [Category]()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,6 +83,9 @@ class CategoriesCollectionController: UICollectionViewController, UICollectionVi
         
         collectionView.collectionViewLayout = layout
         collectionView.backgroundColor = UIColor(red:0.87, green:0.89, blue:0.92, alpha:1.0)
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Merriweather-Black", size: 17)!]
+        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Merriweather-Black", size: 30)!]
         
         getCategories()
 
@@ -141,6 +151,7 @@ class CategoriesCollectionController: UICollectionViewController, UICollectionVi
         let name = categories[indexPath.row].name
         let recipeController = storyboard?.instantiateViewController(withIdentifier: "RecipesController") as! RecipesController
         recipeController.category = name
+        recipeController.title = name
         
         self.navigationController?.pushViewController(recipeController, animated: true)
         

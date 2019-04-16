@@ -13,6 +13,12 @@
         <array key="Merriweather-Bold.ttf">
             <string>Merriweather-Bold</string>
         </array>
+        <array key="Merriweather-Light.ttf">
+            <string>Merriweather-Light</string>
+        </array>
+        <array key="Merriweather-Regular.ttf">
+            <string>Merriweather-Regular</string>
+        </array>
     </customFonts>
     <scenes>
         <!--Recipes Controller-->
@@ -89,7 +95,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BHx-Yk-fXu">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="649"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="785.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UPh-nV-tN2" customClass="ShadowView" customModule="RandomRecipe" customModuleProvider="target">
                                                 <rect key="frame" x="30" y="30" width="315" height="315"/>
@@ -141,75 +147,114 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="INGREDIENTS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohR-bp-F6c">
-                                                <rect key="frame" x="25" y="495" width="325" height="24"/>
+                                                <rect key="frame" x="25" y="453" width="325" height="24"/>
                                                 <fontDescription key="fontDescription" name="Merriweather-Bold" family="Merriweather" pointSize="19"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cBr-NS-Eaa">
-                                                <rect key="frame" x="25" y="524" width="325" height="19.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Cyv-fo-mQh">
+                                                <rect key="frame" x="0.0" y="482" width="375" height="180"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="180" id="m4E-2D-FKb"/>
+                                                </constraints>
+                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="kG6-Ns-tJK">
+                                                    <size key="itemSize" width="108" height="70"/>
+                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                </collectionViewFlowLayout>
+                                                <cells>
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ingredientCell" id="sZf-0i-9aD" customClass="IngredientCell" customModule="RandomRecipe" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="15" width="150" height="150"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                                            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <subviews>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lUh-a9-EOC">
+                                                                    <rect key="frame" x="10" y="10" width="130" height="80"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="130" id="0b9-yZ-sjf"/>
+                                                                        <constraint firstAttribute="height" constant="80" id="Fxb-9b-0Ob"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HO6-e6-lpu">
+                                                                    <rect key="frame" x="10" y="129" width="130" height="16"/>
+                                                                    <fontDescription key="fontDescription" name="Merriweather-Light" family="Merriweather Light" pointSize="12"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RLx-wE-aLr">
+                                                                    <rect key="frame" x="10" y="103" width="130" height="21"/>
+                                                                    <fontDescription key="fontDescription" name="Merriweather-Regular" family="Merriweather" pointSize="16"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </view>
+                                                        <constraints>
+                                                            <constraint firstItem="lUh-a9-EOC" firstAttribute="top" secondItem="sZf-0i-9aD" secondAttribute="top" constant="10" id="1aF-OP-QOe"/>
+                                                            <constraint firstAttribute="bottom" secondItem="HO6-e6-lpu" secondAttribute="bottom" constant="5" id="1rW-gN-Fkl"/>
+                                                            <constraint firstAttribute="trailing" secondItem="HO6-e6-lpu" secondAttribute="trailing" constant="10" id="B7L-bp-LMd"/>
+                                                            <constraint firstItem="HO6-e6-lpu" firstAttribute="leading" secondItem="sZf-0i-9aD" secondAttribute="leading" constant="10" id="DLg-2k-M5Z"/>
+                                                            <constraint firstItem="RLx-wE-aLr" firstAttribute="top" secondItem="lUh-a9-EOC" secondAttribute="bottom" constant="13" id="DkJ-Q5-MTT"/>
+                                                            <constraint firstAttribute="trailing" secondItem="RLx-wE-aLr" secondAttribute="trailing" constant="10" id="I2D-Wj-Tcy"/>
+                                                            <constraint firstItem="HO6-e6-lpu" firstAttribute="top" secondItem="RLx-wE-aLr" secondAttribute="bottom" constant="5" id="Lwc-Nw-oj8"/>
+                                                            <constraint firstItem="RLx-wE-aLr" firstAttribute="leading" secondItem="sZf-0i-9aD" secondAttribute="leading" constant="10" id="iiB-HK-iAA"/>
+                                                            <constraint firstAttribute="trailing" secondItem="lUh-a9-EOC" secondAttribute="trailing" constant="10" id="jhc-Rv-J7J"/>
+                                                            <constraint firstItem="lUh-a9-EOC" firstAttribute="leading" secondItem="sZf-0i-9aD" secondAttribute="leading" constant="10" id="sDP-J7-dFL"/>
+                                                        </constraints>
+                                                        <size key="customSize" width="150" height="150"/>
+                                                        <connections>
+                                                            <outlet property="amount" destination="HO6-e6-lpu" id="SJE-x8-Q7l"/>
+                                                            <outlet property="image" destination="lUh-a9-EOC" id="Rch-JQ-AJa"/>
+                                                            <outlet property="name" destination="RLx-wE-aLr" id="dg7-41-KHO"/>
+                                                        </connections>
+                                                    </collectionViewCell>
+                                                </cells>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="dc6-vt-MwW"/>
+                                                    <outlet property="delegate" destination="BYZ-38-t0r" id="S5G-I1-RQS"/>
+                                                </connections>
+                                            </collectionView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DIRECTIONS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bja-PU-j8K">
-                                                <rect key="frame" x="25" y="568.5" width="325" height="24"/>
+                                                <rect key="frame" x="25" y="687" width="325" height="24"/>
                                                 <fontDescription key="fontDescription" name="Merriweather-Bold" family="Merriweather" pointSize="19"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WDS-mD-X45">
-                                                <rect key="frame" x="25" y="597.5" width="325" height="19.5"/>
+                                                <rect key="frame" x="25" y="716" width="325" height="19.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="a5q-6n-win">
-                                                <rect key="frame" x="25" y="438" width="120" height="32"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nom-qP-WDZ">
-                                                        <rect key="frame" x="0.0" y="0.0" width="55" height="32"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="55" id="Ov2-70-YnQ"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mXY-IJ-OLL">
-                                                        <rect key="frame" x="65" y="0.0" width="55" height="32"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="55" id="G7F-Ku-7kL"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    </button>
-                                                </subviews>
-                                            </stackView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="ohR-bp-F6c" firstAttribute="leading" secondItem="BHx-Yk-fXu" secondAttribute="leading" constant="25" id="2Fs-2G-ZVq"/>
                                             <constraint firstItem="mga-0b-Ok2" firstAttribute="top" secondItem="0SV-de-v10" secondAttribute="bottom" constant="5" id="8PW-QE-25q"/>
                                             <constraint firstAttribute="trailing" secondItem="Bja-PU-j8K" secondAttribute="trailing" constant="25" id="99a-I8-idF"/>
-                                            <constraint firstAttribute="trailing" secondItem="cBr-NS-Eaa" secondAttribute="trailing" constant="25" id="9tV-zq-wGp"/>
                                             <constraint firstAttribute="trailing" secondItem="UPh-nV-tN2" secondAttribute="trailing" constant="30" id="AFM-bY-iIw"/>
-                                            <constraint firstItem="cBr-NS-Eaa" firstAttribute="top" secondItem="ohR-bp-F6c" secondAttribute="bottom" constant="5" id="CRe-Q3-SMj"/>
                                             <constraint firstItem="Bja-PU-j8K" firstAttribute="leading" secondItem="BHx-Yk-fXu" secondAttribute="leading" constant="25" id="EqY-b0-yTQ"/>
+                                            <constraint firstItem="Cyv-fo-mQh" firstAttribute="leading" secondItem="BHx-Yk-fXu" secondAttribute="leading" id="FCI-Ny-NSm"/>
                                             <constraint firstAttribute="trailing" secondItem="ohR-bp-F6c" secondAttribute="trailing" constant="25" id="FJ4-5X-1BC"/>
-                                            <constraint firstItem="ohR-bp-F6c" firstAttribute="top" secondItem="a5q-6n-win" secondAttribute="bottom" constant="25" id="L1b-wq-jYA"/>
                                             <constraint firstItem="0SV-de-v10" firstAttribute="leading" secondItem="BHx-Yk-fXu" secondAttribute="leading" constant="25" id="Nn4-ZY-aR3"/>
-                                            <constraint firstAttribute="bottom" secondItem="WDS-mD-X45" secondAttribute="bottom" constant="32" id="SBu-Qb-2eA"/>
+                                            <constraint firstItem="ohR-bp-F6c" firstAttribute="top" secondItem="mga-0b-Ok2" secondAttribute="bottom" constant="25" id="UDK-lC-vea"/>
                                             <constraint firstAttribute="trailing" secondItem="mga-0b-Ok2" secondAttribute="trailing" constant="25" id="UOi-ka-Chg"/>
                                             <constraint firstAttribute="trailing" secondItem="WDS-mD-X45" secondAttribute="trailing" constant="25" id="Ucn-a5-CBh"/>
                                             <constraint firstItem="UPh-nV-tN2" firstAttribute="leading" secondItem="BHx-Yk-fXu" secondAttribute="leading" constant="30" id="XgN-yH-clJ"/>
-                                            <constraint firstItem="cBr-NS-Eaa" firstAttribute="leading" secondItem="BHx-Yk-fXu" secondAttribute="leading" constant="25" id="ccy-54-W6I"/>
+                                            <constraint firstItem="Cyv-fo-mQh" firstAttribute="top" secondItem="ohR-bp-F6c" secondAttribute="bottom" constant="5" id="bWA-5k-srW"/>
                                             <constraint firstItem="0SV-de-v10" firstAttribute="top" secondItem="UPh-nV-tN2" secondAttribute="bottom" constant="25" id="dvN-w7-a7H"/>
                                             <constraint firstItem="WDS-mD-X45" firstAttribute="top" secondItem="Bja-PU-j8K" secondAttribute="bottom" constant="5" id="ffW-uG-5Y8"/>
-                                            <constraint firstItem="a5q-6n-win" firstAttribute="leading" secondItem="BHx-Yk-fXu" secondAttribute="leading" constant="25" id="ng3-oS-uHK"/>
+                                            <constraint firstAttribute="trailing" secondItem="Cyv-fo-mQh" secondAttribute="trailing" id="mQc-nf-WI5"/>
                                             <constraint firstItem="mga-0b-Ok2" firstAttribute="leading" secondItem="BHx-Yk-fXu" secondAttribute="leading" constant="25" id="o0A-Gh-TrI"/>
                                             <constraint firstItem="UPh-nV-tN2" firstAttribute="top" secondItem="BHx-Yk-fXu" secondAttribute="top" constant="30" id="ocx-Pv-6L2"/>
                                             <constraint firstAttribute="trailing" secondItem="0SV-de-v10" secondAttribute="trailing" constant="25" id="ru4-ao-bTR"/>
-                                            <constraint firstItem="a5q-6n-win" firstAttribute="top" secondItem="mga-0b-Ok2" secondAttribute="bottom" constant="10" id="tU1-bX-pD1"/>
                                             <constraint firstItem="WDS-mD-X45" firstAttribute="leading" secondItem="BHx-Yk-fXu" secondAttribute="leading" constant="25" id="tcE-G4-a4l"/>
-                                            <constraint firstItem="Bja-PU-j8K" firstAttribute="top" secondItem="cBr-NS-Eaa" secondAttribute="bottom" constant="25" id="v7u-9A-Y3U"/>
+                                            <constraint firstAttribute="bottom" secondItem="WDS-mD-X45" secondAttribute="bottom" constant="50" id="tqK-pb-hvx"/>
+                                            <constraint firstItem="Bja-PU-j8K" firstAttribute="top" secondItem="Cyv-fo-mQh" secondAttribute="bottom" constant="25" id="yZR-eS-eTw"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -236,13 +281,11 @@
                         <outlet property="details" destination="mga-0b-Ok2" id="LTL-oV-V0H"/>
                         <outlet property="directions" destination="WDS-mD-X45" id="gkg-eh-dl0"/>
                         <outlet property="imageContainer" destination="UPh-nV-tN2" id="B8I-dF-VNA"/>
-                        <outlet property="ingredients" destination="cBr-NS-Eaa" id="KDH-2G-f6R"/>
+                        <outlet property="ingredientsCollectionView" destination="Cyv-fo-mQh" id="OFg-Dh-ci2"/>
                         <outlet property="loadingView" destination="Ryr-L5-cme" id="yjQ-Bj-BeE"/>
                         <outlet property="recipeImage" destination="DLG-Jt-Eyj" id="zRp-lW-uHG"/>
                         <outlet property="recipeName" destination="0SV-de-v10" id="3oQ-8i-Je1"/>
                         <outlet property="scrollView" destination="7mc-KQ-LaO" id="asf-gt-sc0"/>
-                        <outlet property="sourceBtn" destination="mXY-IJ-OLL" id="Z2S-Zs-kKo"/>
-                        <outlet property="watchBtn" destination="nom-qP-WDZ" id="Yrk-7M-s2X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -272,7 +315,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="thS-VS-Ve9">
-                                            <rect key="frame" x="144.5" y="21" width="67.5" height="38"/>
+                                            <rect key="frame" x="147.5" y="21" width="61" height="38"/>
                                             <fontDescription key="fontDescription" name="Merriweather-Bold" family="Merriweather" pointSize="23"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -305,8 +348,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nEj-0x-cir" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="DKA-on-IDm">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="DKA-on-IDm">
+                        <rect key="frame" x="0.0" y="20" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

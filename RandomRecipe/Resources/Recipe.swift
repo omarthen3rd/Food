@@ -17,11 +17,11 @@ class Recipe {
     var area: String
     var tags: String
     var instructions: String
-    var ingredients: [String: String]
+    var ingredients: [Ingredient]
     var website: URL?
     var video: URL?
     
-    init(id: String, image: UIImage, name: String, category: String, area: String, tags: String, instructions: String, ingredients: [String: String], website: URL, video: URL) {
+    init(id: String, image: UIImage, name: String, category: String, area: String, tags: String, instructions: String, ingredients: [Ingredient], website: URL, video: URL) {
         
         self.id = id
         self.image = image
@@ -41,10 +41,10 @@ class Recipe {
 class RecipePreview {
     
     var id: String
-    var image: UIImage
+    var image: URL
     var name: String
     
-    init(id: String, image: UIImage, name: String) {
+    init(id: String, image: URL, name: String) {
         self.id = id
         self.image = image
         self.name = name

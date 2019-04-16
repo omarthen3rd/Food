@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 private let reuseIdentifier = "recipeCell"
 
@@ -34,18 +35,13 @@ class RecipeCell: UICollectionViewCell {
     }
     
     func displayData(_ recipe: RecipePreview) {
-        img?.image = recipe.image
+        img.sd_setImage(with: recipe.image, completed: nil)
         name?.text = recipe.name
-//        recipe.image.getColors { (colors) in
-//            self.backgroundColor = colors?.background
-//            self.name.textColor = colors?.primary
-//        }
     }
     
     func commonInit() {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         img?.contentMode = .scaleAspectFill
-
     }
     
     override func layoutSubviews() {
@@ -95,10 +91,17 @@ class RecipesController: UICollectionViewController, UICollectionViewDelegateFlo
             getRecipes(category)
         }
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         let spacing: CGFloat = 15
         
         let layout = UICollectionViewFlowLayout()
@@ -111,6 +114,9 @@ class RecipesController: UICollectionViewController, UICollectionViewDelegateFlo
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.collectionViewLayout = layout
         collectionView.backgroundColor = UIColor(red:0.87, green:0.89, blue:0.92, alpha:1.0)
+        
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Merriweather-Black", size: 17)!]
+        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Merriweather-Black", size: 30)!]
 
     }
     
@@ -131,21 +137,15 @@ class RecipesController: UICollectionViewController, UICollectionViewDelegateFlo
             
             for recipe in recipesJSON {
                 guard let imageURL = URL(string: recipe["strMealThumb"].stringValue) else { return }
-                self.getData(from: imageURL, completion: { (data, response, error) in
-                    guard let data = data else { return }
-                    guard let image = UIImage(data: data) else { return }
-                    let id = recipe["idMeal"].stringValue
-                    let name = recipe["strMeal"].stringValue.capitalized
-                    let newRecipe = RecipePreview(id: id, image: image, name: name)
-                    self.recipes.append(newRecipe)
-                })
+                let id = recipe["idMeal"].stringValue
+                let name = recipe["strMeal"].stringValue.capitalized
+                let newRecipe = RecipePreview(id: id, image: imageURL, name: name)
+                self.recipes.append(newRecipe)
             }
             
         }
     }
     
-    
-
     /*
     // MARK: - Navigation
 

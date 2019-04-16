@@ -7,8 +7,62 @@
 //
 
 import UIKit
+import SDWebImage
 
-class ViewController: UIViewController {
+struct Ingredient {
+    
+    var image: URL
+    var name: String
+    var amount: String
+    
+}
+
+class IngredientCell: UICollectionViewCell {
+    
+    @IBOutlet var image: UIImageView!
+    @IBOutlet var name: UILabel!
+    @IBOutlet var amount: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        image.contentMode = .scaleAspectFit
+        
+    }
+    
+    func displayData(_ ingredient: Ingredient) {
+        
+        name.text = ingredient.name
+        amount.text = ingredient.amount
+        image.sd_setImage(with: ingredient.image, completed: nil)
+        
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        
+        // god bless this person: https://stackoverflow.com/a/50366615/6871025
+        
+        contentView.backgroundColor = .white
+        contentView.layer.cornerRadius = 5
+        contentView.layer.borderWidth = 1.0
+        contentView.layer.borderColor = UIColor.clear.cgColor
+        contentView.layer.masksToBounds = true
+        
+        layer.shadowColor = UIColor.lightGray.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 5.0)
+        layer.shadowRadius = 6
+        layer.shadowOpacity = 0.3
+        layer.masksToBounds = false
+        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: contentView.layer.cornerRadius).cgPath
+        layer.backgroundColor = UIColor.clear.cgColor
+        
+    }
+    
+}
+
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     // MARK: - IBOutlets
     @IBOutlet var scrollView: UIScrollView!
@@ -17,11 +71,11 @@ class ViewController: UIViewController {
     @IBOutlet var recipeImage: UIImageView!
     @IBOutlet var recipeName: UILabel!
     @IBOutlet var details: UILabel!
-    @IBOutlet var ingredients: UILabel!
     @IBOutlet var directions: UILabel!
-    @IBOutlet var watchBtn: UIButton!
-    @IBOutlet var sourceBtn: UIButton!
     
+    @IBOutlet var ingredientsCollectionView: UICollectionView!
+    
+    // show loading labels on image
     var isLoading = true {
         didSet {
             setLoading(isLoading)
@@ -42,16 +96,14 @@ class ViewController: UIViewController {
         }
     }
     
+    var ingredientImages = [UIImage]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-//        for family in UIFont.familyNames.sorted() {
-//            let names = UIFont.fontNames(forFamilyName: family)
-//            print("Family: \(family) Font names: \(names)")
-//        }
-        
         isLoading = true
+        setIngredientLoading(true)
         setupUI()
         
     }
@@ -68,8 +120,40 @@ class ViewController: UIViewController {
         
     }
     
+    func setIngredientLoading(_ loading: Bool) {
+        
+        if loading {
+            ingredientsCollectionView.isScrollEnabled = false
+        } else {
+            ingredientsCollectionView.isScrollEnabled = true
+        }
+        
+    }
+    
     func setupUI() {
-                
+        
+        ingredientsCollectionView.delegate = self
+        ingredientsCollectionView.dataSource = self
+        
+        let rightButton1 = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(openURL(_:)))
+        rightButton1.tag = 0
+        let rightButton2 = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(openURL(_:)))
+        rightButton2.tag = 1
+        
+        navigationItem.rightBarButtonItems = [rightButton1, rightButton2]
+        
+        let spacing: CGFloat = 15
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.estimatedItemSize = CGSize(width: 130, height: 150)
+        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = spacing
+        layout.minimumInteritemSpacing = spacing
+        ingredientsCollectionView.collectionViewLayout = layout
+        
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+        
         recipeImage.contentMode = .scaleAspectFill
         recipeImage.layer.cornerRadius = 8
         recipeImage.layer.masksToBounds = true
@@ -80,28 +164,14 @@ class ViewController: UIViewController {
         
         recipeName.font = UIFont(name: "Merriweather-Black", size: recipeName.font.pointSize)
         details.font = UIFont(name: "Merriweather-Light", size: details.font.pointSize)
-        ingredients.font = UIFont(name: "Merriweather-Regular", size: ingredients.font.pointSize)
+        // ingredients.font = UIFont(name: "Merriweather-Regular", size: ingredients.font.pointSize)
         directions.font = UIFont(name: "Merriweather-Regular", size: directions.font.pointSize)
         
-        guard let awesomeFont = UIFont(name: "FontAwesome5BrandsRegular", size: 25) else { return }
-        
-        let watchTitle = ""
-        let attrWatchStr = NSMutableAttributedString(string: watchTitle)
-        attrWatchStr.setFontForText("", awesomeFont)
-        watchBtn.setAttributedTitle(attrWatchStr, for: [])
-        watchBtn.tag = 0
-        watchBtn.addTarget(self, action: #selector(openURL(button:)), for: .touchUpInside)
-        
-        let sourceTitle = ""
-        let attrSourceStr = NSMutableAttributedString(string: sourceTitle)
-        attrSourceStr.setFontForText("", awesomeFont)
-        sourceBtn.setAttributedTitle(attrSourceStr, for: [])
-        sourceBtn.tag = 1
-        sourceBtn.addTarget(self, action: #selector(openURL(button:)), for: .touchUpInside)
+//        guard let awesomeFont = UIFont(name: "FontAwesome5BrandsRegular", size: 25) else { return }
         
     }
     
-    @objc func openURL(button: UIButton) {
+    @objc func openURL(_ button: UIBarButtonItem) {
         
         if button.tag == 0 {
             // video
@@ -125,26 +195,8 @@ class ViewController: UIViewController {
             self.details.text = "\(recipe.category) · \(recipe.area)"
             self.directions.text = recipe.instructions
             
-            // show ingredients
-            guard let smallMerriweather = UIFont(name: "Merriweather-Light", size: 12) else { return }
-            self.ingredients.text = ""
-            let finalAttrString = NSMutableAttributedString(string: "")
-            let keys = Array(recipe.ingredients.keys)
-            for (key, value) in recipe.ingredients {
-                let ingredientStr = keys.last == key ? "\(key)\n\(value)" :"\(key)\n\(value)\n\n"
-                let attrStr = NSMutableAttributedString(string: ingredientStr)
-                attrStr.setFontForText("\(value)", smallMerriweather)
-                attrStr.setColorForText("\(value)", with: UIColor.gray)
-                finalAttrString.append(attrStr)
-            }
-            self.ingredients.attributedText = finalAttrString
-            
-            // check if urls is valid
-            if recipe.video?.absoluteString == "www.google.com" {
-                self.watchBtn.isEnabled = false
-            } else if recipe.website?.absoluteString == "www.google.com" {
-                self.sourceBtn.isEnabled = false
-            }
+            self.ingredientsCollectionView.reloadData()
+            self.setIngredientLoading(false)
             
         }
         
@@ -174,14 +226,16 @@ class ViewController: UIViewController {
             
             print("getting other values...")
             // get ingredients
-            var ingredients = [String: String]()
+            var ingredients = [Ingredient]()
             var index = 1
             while recipeJSON["strIngredient\(index)"].stringValue.count != 0 {
                 
                 let ingredientName = recipeJSON["strIngredient\(index)"].stringValue.capitalized
                 let ingredientMeasure = recipeJSON["strMeasure\(index)"].stringValue.capitalized
-                
-                ingredients[ingredientName] = ingredientMeasure
+                guard let query = ingredientName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
+                guard let ingredientURL = URL(string: "https://www.themealdb.com/images/ingredients/\(query).png") else { return }
+                let newIngredient = Ingredient(image: ingredientURL, name: ingredientName, amount: ingredientMeasure)
+                ingredients.append(newIngredient)
                 
                 index += 1
                 
@@ -194,14 +248,41 @@ class ViewController: UIViewController {
             let area = recipeJSON["strArea"].stringValue
             let category = recipeJSON["strCategory"].stringValue
             let instructions = recipeJSON["strInstructions"].stringValue.replacingOccurrences(of: "\n", with: "\n\n") // double space
-            let website = URL(string: recipeJSON["strSource"].stringValue) == nil ? URL(string: "www.google.com") : URL(string: recipeJSON["strSource"].stringValue)
-            let video = URL(string: recipeJSON["strYoutube"].stringValue) == nil ? URL(string: "www.google.com") : URL(string: recipeJSON["strSource"].stringValue)
+            let website = recipeJSON["strSource"].stringValue == "" ? URL(string: "www.google.com") : URL(string: recipeJSON["strSource"].stringValue)
+            let video = recipeJSON["strYoutube"].stringValue == "" ? URL(string: "www.google.com") : URL(string: recipeJSON["strYoutube"].stringValue)
             
-            print("setting recipe")
             self.recipe = Recipe(id: id, image: image, name: name, category: category, area: area, tags: tags, instructions: instructions, ingredients: ingredients, website: website!, video: video!)
-            
+                        
         }
         
+    }
+    
+    // MARK: - Collection view
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard recipe != nil else { return 0 }
+        return recipe.ingredients.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ingredientCell", for: indexPath) as! IngredientCell
+        
+        let ingredient = recipe.ingredients[indexPath.row]
+        print(ingredient.image)
+        
+        cell.displayData(ingredient)
+        
+        return cell
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 130, height: 150)
     }
     
     // MARK: - Data handler function
