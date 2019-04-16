@@ -95,7 +95,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BHx-Yk-fXu">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="785.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="786"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UPh-nV-tN2" customClass="ShadowView" customModule="RandomRecipe" customModuleProvider="target">
                                                 <rect key="frame" x="30" y="30" width="315" height="315"/>
@@ -106,17 +106,14 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ryr-L5-cme">
                                                         <rect key="frame" x="0.0" y="0.0" width="315" height="315"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading...." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2YF-v0-Ruj">
-                                                                <rect key="frame" x="103" y="143" width="109.5" height="29"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
+                                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="oOn-m4-Lno">
+                                                                <rect key="frame" x="147.5" y="147.5" width="20" height="20"/>
+                                                            </activityIndicatorView>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstItem="2YF-v0-Ruj" firstAttribute="centerY" secondItem="Ryr-L5-cme" secondAttribute="centerY" id="RYz-b2-wZu"/>
-                                                            <constraint firstItem="2YF-v0-Ruj" firstAttribute="centerX" secondItem="Ryr-L5-cme" secondAttribute="centerX" id="uxp-po-OFy"/>
+                                                            <constraint firstItem="oOn-m4-Lno" firstAttribute="centerX" secondItem="Ryr-L5-cme" secondAttribute="centerX" id="5eh-X6-D4B"/>
+                                                            <constraint firstItem="oOn-m4-Lno" firstAttribute="centerY" secondItem="Ryr-L5-cme" secondAttribute="centerY" id="Des-9R-gzT"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -134,27 +131,27 @@
                                                     <constraint firstItem="Ryr-L5-cme" firstAttribute="top" secondItem="UPh-nV-tN2" secondAttribute="top" id="wXa-VK-VKH"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0SV-de-v10">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0SV-de-v10">
                                                 <rect key="frame" x="25" y="370" width="325" height="31.5"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mga-0b-Ok2">
-                                                <rect key="frame" x="25" y="406.5" width="325" height="21.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mga-0b-Ok2">
+                                                <rect key="frame" x="25" y="406.5" width="325" height="22"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <color key="textColor" white="0.45000000000000001" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="INGREDIENTS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohR-bp-F6c">
-                                                <rect key="frame" x="25" y="453" width="325" height="24"/>
+                                                <rect key="frame" x="25" y="453.5" width="325" height="24"/>
                                                 <fontDescription key="fontDescription" name="Merriweather-Bold" family="Merriweather" pointSize="19"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Cyv-fo-mQh">
-                                                <rect key="frame" x="0.0" y="482" width="375" height="180"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <rect key="frame" x="0.0" y="482.5" width="375" height="180"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="180" id="m4E-2D-FKb"/>
                                                 </constraints>
@@ -219,19 +216,19 @@
                                                 </connections>
                                             </collectionView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DIRECTIONS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bja-PU-j8K">
-                                                <rect key="frame" x="25" y="687" width="325" height="24"/>
+                                                <rect key="frame" x="25" y="687.5" width="325" height="24"/>
                                                 <fontDescription key="fontDescription" name="Merriweather-Bold" family="Merriweather" pointSize="19"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WDS-mD-X45">
-                                                <rect key="frame" x="25" y="716" width="325" height="19.5"/>
+                                                <rect key="frame" x="25" y="716.5" width="325" height="19.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="ohR-bp-F6c" firstAttribute="leading" secondItem="BHx-Yk-fXu" secondAttribute="leading" constant="25" id="2Fs-2G-ZVq"/>
                                             <constraint firstItem="mga-0b-Ok2" firstAttribute="top" secondItem="0SV-de-v10" secondAttribute="bottom" constant="5" id="8PW-QE-25q"/>
@@ -280,8 +277,11 @@
                     <connections>
                         <outlet property="details" destination="mga-0b-Ok2" id="LTL-oV-V0H"/>
                         <outlet property="directions" destination="WDS-mD-X45" id="gkg-eh-dl0"/>
+                        <outlet property="directionsHeader" destination="Bja-PU-j8K" id="Vdt-IF-lU9"/>
                         <outlet property="imageContainer" destination="UPh-nV-tN2" id="B8I-dF-VNA"/>
                         <outlet property="ingredientsCollectionView" destination="Cyv-fo-mQh" id="OFg-Dh-ci2"/>
+                        <outlet property="ingredientsHeader" destination="ohR-bp-F6c" id="LgE-In-HT9"/>
+                        <outlet property="loadingIndicator" destination="oOn-m4-Lno" id="KBY-NI-vmZ"/>
                         <outlet property="loadingView" destination="Ryr-L5-cme" id="yjQ-Bj-BeE"/>
                         <outlet property="recipeImage" destination="DLG-Jt-Eyj" id="zRp-lW-uHG"/>
                         <outlet property="recipeName" destination="0SV-de-v10" id="3oQ-8i-Je1"/>

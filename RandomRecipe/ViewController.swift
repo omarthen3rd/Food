@@ -8,6 +8,7 @@
 
 import UIKit
 import SDWebImage
+import CyaneaOctopus
 
 struct Ingredient {
     
@@ -34,29 +35,39 @@ class IngredientCell: UICollectionViewCell {
         
         name.text = ingredient.name
         amount.text = ingredient.amount
-        image.sd_setImage(with: ingredient.image, completed: nil)
+        image.sd_setImage(with: ingredient.image, placeholderImage: UIImage(named: "placeholder"), options: SDWebImageOptions.delayPlaceholder) { (img, error, cache, url) in
+            
+//            img?.getColors(quality: UIImageColorsQuality.high, { (colors) in
+//                DispatchQueue.main.async {
+//                    self.name.textColor = colors?.primary
+//                    self.amount.textColor = colors?.secondary
+//                    self.contentView.backgroundColor = colors?.background.lighten(by: 1.0)
+//                }
+//            })
+            
+        }
+        
         
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        
         // god bless this person: https://stackoverflow.com/a/50366615/6871025
         
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = UIColor(red:0.95, green:0.95, blue:0.96, alpha:1.0)
         contentView.layer.cornerRadius = 5
-        contentView.layer.borderWidth = 1.0
-        contentView.layer.borderColor = UIColor.clear.cgColor
+        contentView.layer.borderWidth = 0.7
+        contentView.layer.borderColor = UIColor(red:0.64, green:0.69, blue:0.75, alpha:1.0).cgColor
         contentView.layer.masksToBounds = true
         
-        layer.shadowColor = UIColor.lightGray.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 5.0)
-        layer.shadowRadius = 6
-        layer.shadowOpacity = 0.3
-        layer.masksToBounds = false
-        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: contentView.layer.cornerRadius).cgPath
-        layer.backgroundColor = UIColor.clear.cgColor
+//        layer.shadowColor = UIColor.lightGray.cgColor
+//        layer.shadowOffset = CGSize(width: 0, height: 5.0)
+//        layer.shadowRadius = 6
+//        layer.shadowOpacity = 0.3
+//        layer.masksToBounds = false
+//        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: contentView.layer.cornerRadius).cgPath
+//        layer.backgroundColor = UIColor.clear.cgColor
         
     }
     
@@ -71,8 +82,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     @IBOutlet var recipeImage: UIImageView!
     @IBOutlet var recipeName: UILabel!
     @IBOutlet var details: UILabel!
+    @IBOutlet var ingredientsHeader: UILabel!
+    @IBOutlet var directionsHeader: UILabel!
     @IBOutlet var directions: UILabel!
     
+    @IBOutlet var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet var ingredientsCollectionView: UICollectionView!
     
     // show loading labels on image
@@ -96,7 +110,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
-    var ingredientImages = [UIImage]()
+    var colors: UIImageColors! {
+        didSet {
+            setColors()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,9 +131,15 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         if loading {
             scrollView.isScrollEnabled = false
             loadingView.isHidden = false
+            loadingIndicator.startAnimating()
+            ingredientsHeader.isHidden = true
+            directionsHeader.isHidden = true
         } else {
             scrollView.isScrollEnabled = true
             loadingView.isHidden = true
+            loadingIndicator.stopAnimating()
+            ingredientsHeader.isHidden = false
+            directionsHeader.isHidden = false
         }
         
     }
@@ -131,6 +155,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func setupUI() {
+        
+        self.scrollView.backgroundColor = .clear
         
         ingredientsCollectionView.delegate = self
         ingredientsCollectionView.dataSource = self
@@ -198,8 +224,16 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             self.ingredientsCollectionView.reloadData()
             self.setIngredientLoading(false)
             
+            
+            
         }
         
+    }
+    
+    func setColors() {
+        
+        
+    
     }
     
     func fetchRecipe(_ id: String) {
@@ -214,14 +248,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             // get image from URL
             let image = UIImage(imageLiteralResourceName: "placeholder")
             guard let imageURL = URL(string: recipeJSON["strMealThumb"].stringValue) else { return }
-            self.getData(from: imageURL, completion: { (data, response, error) in
-                guard let data = data, error == nil else { return }
-                guard let im = UIImage(data: data) else { return }
-                DispatchQueue.main.async {
-                    print("setting image")
-                    self.recipeImage.image = im
-                    self.isLoading = false
-                }
+            self.recipeImage.sd_setImage(with: imageURL, placeholderImage: UIImage(named: "placeholder"), options: SDWebImageOptions.delayPlaceholder, completed: { (img, error, cache, url) in
+
+                img?.getColors(quality: .highest, { (colors) in
+                    self.colors = colors
+                })
+                self.isLoading = false
+                
             })
             
             print("getting other values...")
@@ -273,8 +306,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ingredientCell", for: indexPath) as! IngredientCell
         
         let ingredient = recipe.ingredients[indexPath.row]
-        print(ingredient.image)
-        
         cell.displayData(ingredient)
         
         return cell
