@@ -9,7 +9,7 @@ DEPENDENCIES:
   - SDWebImage (~> 5.0)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - CyaneaOctopus
     - SDWebImage
 
@@ -19,4 +19,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 5e7b2558dea26e08f6d537d5261a245e22ceb23b
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4

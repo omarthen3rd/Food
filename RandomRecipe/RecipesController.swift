@@ -50,19 +50,19 @@ class RecipeCell: UICollectionViewCell {
         
         // god bless this person: https://stackoverflow.com/a/50366615/6871025
         
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = .tertiarySystemFill
         contentView.layer.cornerRadius = 8
         contentView.layer.borderWidth = 1.0
         contentView.layer.borderColor = UIColor.clear.cgColor
         contentView.layer.masksToBounds = true
         
-        layer.shadowColor = UIColor.lightGray.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 5.0)
-        layer.shadowRadius = 6
-        layer.shadowOpacity = 0.3
-        layer.masksToBounds = false
-        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: contentView.layer.cornerRadius).cgPath
-        layer.backgroundColor = UIColor.clear.cgColor
+//        layer.shadowColor = UIColor.tertiarySystemBackground.cgColor
+//        layer.shadowOffset = CGSize(width: 0, height: 5.0)
+//        layer.shadowRadius = 6
+//        layer.shadowOpacity = 0.3
+//        layer.masksToBounds = false
+//        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: contentView.layer.cornerRadius).cgPath
+//        layer.backgroundColor = UIColor.clear.cgColor
         
     }
     
@@ -113,7 +113,7 @@ class RecipesController: UICollectionViewController, UICollectionViewDelegateFlo
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.collectionViewLayout = layout
-        collectionView.backgroundColor = UIColor(red:0.87, green:0.89, blue:0.92, alpha:1.0)
+        collectionView.backgroundColor = UIColor.systemBackground
         
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Merriweather-Black", size: 17)!]
         self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Merriweather-Black", size: 30)!]

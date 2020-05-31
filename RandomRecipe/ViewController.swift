@@ -35,18 +35,8 @@ class IngredientCell: UICollectionViewCell {
         
         name.text = ingredient.name
         amount.text = ingredient.amount
-        image.sd_setImage(with: ingredient.image, placeholderImage: UIImage(named: "placeholder"), options: SDWebImageOptions.delayPlaceholder) { (img, error, cache, url) in
-            
-//            img?.getColors(quality: UIImageColorsQuality.high, { (colors) in
-//                DispatchQueue.main.async {
-//                    self.name.textColor = colors?.primary
-//                    self.amount.textColor = colors?.secondary
-//                    self.contentView.backgroundColor = colors?.background.lighten(by: 1.0)
-//                }
-//            })
-            
-        }
-        
+        guard let imageView = image else { return }
+        imageView.sd_setImage(with: ingredient.image, placeholderImage: UIImage(named: "placeholder")!, options: SDWebImageOptions.scaleDownLargeImages, context: nil)
         
     }
     
@@ -55,7 +45,7 @@ class IngredientCell: UICollectionViewCell {
         
         // god bless this person: https://stackoverflow.com/a/50366615/6871025
         
-        contentView.backgroundColor = UIColor(red:0.95, green:0.95, blue:0.96, alpha:1.0)
+        contentView.backgroundColor = UIColor.tertiarySystemBackground
         contentView.layer.cornerRadius = 5
         contentView.layer.borderWidth = 0.7
         contentView.layer.borderColor = UIColor(red:0.64, green:0.69, blue:0.75, alpha:1.0).cgColor
@@ -156,7 +146,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func setupUI() {
         
-        self.scrollView.backgroundColor = .clear
+        self.scrollView.backgroundColor = .systemBackground
         
         ingredientsCollectionView.delegate = self
         ingredientsCollectionView.dataSource = self
@@ -190,9 +180,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         recipeName.font = UIFont(name: "Merriweather-Black", size: recipeName.font.pointSize)
         details.font = UIFont(name: "Merriweather-Light", size: details.font.pointSize)
+        details.textColor = .secondaryLabel
         // ingredients.font = UIFont(name: "Merriweather-Regular", size: ingredients.font.pointSize)
         directions.font = UIFont(name: "Merriweather-Regular", size: directions.font.pointSize)
-        
+        directions.textColor = .label
 //        guard let awesomeFont = UIFont(name: "FontAwesome5BrandsRegular", size: 25) else { return }
         
     }

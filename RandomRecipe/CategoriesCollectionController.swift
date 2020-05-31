@@ -40,19 +40,21 @@ class CategoryCollectionCell: UICollectionViewCell {
         
         // god bless this person: https://stackoverflow.com/a/50366615/6871025
         
-        contentView.backgroundColor = .white
+        contentView.backgroundColor = UIColor.secondarySystemBackground
         contentView.layer.cornerRadius = 8
         contentView.layer.borderWidth = 1.0
         contentView.layer.borderColor = UIColor.clear.cgColor
         contentView.layer.masksToBounds = true
         
-        layer.shadowColor = UIColor.lightGray.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 5.0)
-        layer.shadowRadius = 6
-        layer.shadowOpacity = 0.3
-        layer.masksToBounds = false
-        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: contentView.layer.cornerRadius).cgPath
-        layer.backgroundColor = UIColor.clear.cgColor
+        name.textAlignment = .left
+        
+//        layer.shadowColor = UIColor.tertiarySystemBackground.cgColor
+//        layer.shadowOffset = CGSize(width: 0, height: 5.0)
+//        layer.shadowRadius = 6
+//        layer.shadowOpacity = 0.3
+//        layer.masksToBounds = false
+//        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: contentView.layer.cornerRadius).cgPath
+//        layer.backgroundColor = UIColor.clear.cgColor
         
     }
     
@@ -75,14 +77,14 @@ class CategoriesCollectionController: UICollectionViewController, UICollectionVi
         let spacing: CGFloat = 15
         
         let layout = UICollectionViewFlowLayout()
-        layout.estimatedItemSize = CGSize(width: (UIScreen.main.bounds.width - 30), height: 80)
+        layout.itemSize = CGSize(width: (UIScreen.main.bounds.width - (spacing * 2)), height: 60)
         layout.sectionInset = UIEdgeInsets(top: spacing, left: 0, bottom: spacing, right: 0)
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = spacing
         layout.minimumInteritemSpacing = spacing
         
         collectionView.collectionViewLayout = layout
-        collectionView.backgroundColor = UIColor(red:0.87, green:0.89, blue:0.92, alpha:1.0)
+        collectionView.backgroundColor = UIColor.systemBackground
         
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Merriweather-Black", size: 17)!]
         self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Merriweather-Black", size: 30)!]
@@ -119,6 +121,11 @@ class CategoriesCollectionController: UICollectionViewController, UICollectionVi
                 self.categories.append(newCategory)
             }
             
+            // sort by descending name
+            self.categories.sort { (a, b) -> Bool in
+                return b.name > a.name
+            }
+            
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
@@ -141,7 +148,7 @@ class CategoriesCollectionController: UICollectionViewController, UICollectionVi
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CategoryCollectionCell
     
         let category = categories[indexPath.row]
-        cell.name?.text = category.name.uppercased()
+        cell.name?.text = category.name
     
         return cell
     }
@@ -174,7 +181,7 @@ class CategoriesCollectionController: UICollectionViewController, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (UIScreen.main.bounds.width - 30), height: 80)
+        return CGSize(width: (UIScreen.main.bounds.width - 30), height: 60)
     }
     
     // MARK: - Data handler function
