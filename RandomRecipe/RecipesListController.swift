@@ -1,5 +1,5 @@
 //
-//  RecipesController.swift
+//  RecipesListController.swift
 //  RandomRecipe
 //
 //  Created by Omar Abbasi on 2019-04-14.
@@ -55,14 +55,6 @@ class RecipeCell: UICollectionViewCell {
         contentView.layer.borderWidth = 1.0
         contentView.layer.borderColor = UIColor.clear.cgColor
         contentView.layer.masksToBounds = true
-        
-//        layer.shadowColor = UIColor.tertiarySystemBackground.cgColor
-//        layer.shadowOffset = CGSize(width: 0, height: 5.0)
-//        layer.shadowRadius = 6
-//        layer.shadowOpacity = 0.3
-//        layer.masksToBounds = false
-//        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: contentView.layer.cornerRadius).cgPath
-//        layer.backgroundColor = UIColor.clear.cgColor
         
     }
     
@@ -180,8 +172,9 @@ class RecipesController: UICollectionViewController, UICollectionViewDelegateFlo
         
         let id = recipes[indexPath.row].id
         
-        let vc = storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+        let vc = storyboard?.instantiateViewController(withIdentifier: "RecipeDetailController") as! RecipeDetailController
         vc.id = id
+
         self.navigationController?.pushViewController(vc, animated: true)
         
     }

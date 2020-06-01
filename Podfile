@@ -7,7 +7,6 @@ target 'RandomRecipe' do
 
   # Pods for RandomRecipe
   pod 'SDWebImage', '~> 5.0'
-  pod 'CyaneaOctopus'
 
   target 'RandomRecipeTests' do
     inherit! :search_paths

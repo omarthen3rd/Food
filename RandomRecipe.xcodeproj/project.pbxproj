@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		005A7C99808AED1496597AE2 /* Pods_RandomRecipeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F939B86D0D5A7FF9B85924F /* Pods_RandomRecipeTests.framework */; };
 		565D67E42263BEA60046D326 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565D67E32263BEA60046D326 /* AppDelegate.swift */; };
-		565D67E62263BEA60046D326 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565D67E52263BEA60046D326 /* ViewController.swift */; };
+		565D67E62263BEA60046D326 /* RecipeDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565D67E52263BEA60046D326 /* RecipeDetailController.swift */; };
 		565D67E92263BEA60046D326 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 565D67E72263BEA60046D326 /* Main.storyboard */; };
 		565D67EB2263BEA70046D326 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 565D67EA2263BEA70046D326 /* Assets.xcassets */; };
 		565D67EE2263BEA70046D326 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 565D67EC2263BEA70046D326 /* LaunchScreen.storyboard */; };
@@ -29,9 +29,9 @@
 		565D684422640B470046D326 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 565D684122640B460046D326 /* FontAwesome5_Regular.ttf */; };
 		565D684522640B470046D326 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 565D684222640B460046D326 /* FontAwesome5_Brands.ttf */; };
 		565D684622640B470046D326 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 565D684322640B460046D326 /* FontAwesome5_Solid.ttf */; };
-		565D6849226413360046D326 /* RecipesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565D6848226413360046D326 /* RecipesController.swift */; };
+		565D6849226413360046D326 /* RecipesListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565D6848226413360046D326 /* RecipesListController.swift */; };
 		565D684B226428EE0046D326 /* UIImageColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565D684A226428EE0046D326 /* UIImageColors.swift */; };
-		565D684D2264CF7E0046D326 /* CategoriesCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565D684C2264CF7E0046D326 /* CategoriesCollectionController.swift */; };
+		565D684D2264CF7E0046D326 /* CategoriesListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565D684C2264CF7E0046D326 /* CategoriesListController.swift */; };
 		565D68582264D52C0046D326 /* ShadowView+BlurProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565D684F2264D52C0046D326 /* ShadowView+BlurProcess.swift */; };
 		565D68592264D52C0046D326 /* UIView+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565D68502264D52C0046D326 /* UIView+Image.swift */; };
 		565D685A2264D52C0046D326 /* UIImage+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565D68512264D52C0046D326 /* UIImage+Size.swift */; };
@@ -59,7 +59,7 @@
 		56054BCB2265579A00EBD82A /* libSDWebImage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDWebImage.a; path = "RandomRecipe/SDWebImage static/Products/usr/local/lib/libSDWebImage.a"; sourceTree = "<group>"; };
 		565D67E02263BEA60046D326 /* RandomRecipe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RandomRecipe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		565D67E32263BEA60046D326 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		565D67E52263BEA60046D326 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		565D67E52263BEA60046D326 /* RecipeDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailController.swift; sourceTree = "<group>"; };
 		565D67E82263BEA60046D326 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		565D67EA2263BEA70046D326 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		565D67ED2263BEA70046D326 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -82,9 +82,9 @@
 		565D684122640B460046D326 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Regular.ttf; sourceTree = "<group>"; };
 		565D684222640B460046D326 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Brands.ttf; sourceTree = "<group>"; };
 		565D684322640B460046D326 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Solid.ttf; sourceTree = "<group>"; };
-		565D6848226413360046D326 /* RecipesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesController.swift; sourceTree = "<group>"; };
+		565D6848226413360046D326 /* RecipesListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesListController.swift; sourceTree = "<group>"; };
 		565D684A226428EE0046D326 /* UIImageColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageColors.swift; sourceTree = "<group>"; };
-		565D684C2264CF7E0046D326 /* CategoriesCollectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionController.swift; sourceTree = "<group>"; };
+		565D684C2264CF7E0046D326 /* CategoriesListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesListController.swift; sourceTree = "<group>"; };
 		565D684F2264D52C0046D326 /* ShadowView+BlurProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ShadowView+BlurProcess.swift"; sourceTree = "<group>"; };
 		565D68502264D52C0046D326 /* UIView+Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Image.swift"; sourceTree = "<group>"; };
 		565D68512264D52C0046D326 /* UIImage+Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Size.swift"; sourceTree = "<group>"; };
@@ -166,9 +166,9 @@
 				565D68072263D06F0046D326 /* Fonts */,
 				565D6847226412220046D326 /* Resources */,
 				565D67E32263BEA60046D326 /* AppDelegate.swift */,
-				565D67E52263BEA60046D326 /* ViewController.swift */,
-				565D6848226413360046D326 /* RecipesController.swift */,
-				565D684C2264CF7E0046D326 /* CategoriesCollectionController.swift */,
+				565D67E52263BEA60046D326 /* RecipeDetailController.swift */,
+				565D6848226413360046D326 /* RecipesListController.swift */,
+				565D684C2264CF7E0046D326 /* CategoriesListController.swift */,
 				565D67E72263BEA60046D326 /* Main.storyboard */,
 				565D67EA2263BEA70046D326 /* Assets.xcassets */,
 				565D67EC2263BEA70046D326 /* LaunchScreen.storyboard */,
@@ -412,16 +412,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				565D681F2263DFF50046D326 /* Extensions.swift in Sources */,
-				565D6849226413360046D326 /* RecipesController.swift in Sources */,
+				565D6849226413360046D326 /* RecipesListController.swift in Sources */,
 				565D68042263BF850046D326 /* Recipe.swift in Sources */,
-				565D684D2264CF7E0046D326 /* CategoriesCollectionController.swift in Sources */,
+				565D684D2264CF7E0046D326 /* CategoriesListController.swift in Sources */,
 				565D685A2264D52C0046D326 /* UIImage+Size.swift in Sources */,
 				565D685D2264D52C0046D326 /* UIImageEffects.swift in Sources */,
 				565D68592264D52C0046D326 /* UIView+Image.swift in Sources */,
 				565D685C2264D52C0046D326 /* ShadowView.swift in Sources */,
 				565D685E2264D52C0046D326 /* UIView+Shadow.swift in Sources */,
 				565D684B226428EE0046D326 /* UIImageColors.swift in Sources */,
-				565D67E62263BEA60046D326 /* ViewController.swift in Sources */,
+				565D67E62263BEA60046D326 /* RecipeDetailController.swift in Sources */,
 				565D68582264D52C0046D326 /* ShadowView+BlurProcess.swift in Sources */,
 				565D67E42263BEA60046D326 /* AppDelegate.swift in Sources */,
 				565D68062263C7430046D326 /* SwiftyJSON.swift in Sources */,

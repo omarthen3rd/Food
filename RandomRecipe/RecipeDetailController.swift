@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  RecipeDetailController.swift
 //  RandomRecipe
 //
 //  Created by Omar Abbasi on 2019-04-14.
@@ -8,7 +8,6 @@
 
 import UIKit
 import SDWebImage
-import CyaneaOctopus
 
 struct Ingredient {
     
@@ -51,19 +50,11 @@ class IngredientCell: UICollectionViewCell {
         contentView.layer.borderColor = UIColor(red:0.64, green:0.69, blue:0.75, alpha:1.0).cgColor
         contentView.layer.masksToBounds = true
         
-//        layer.shadowColor = UIColor.lightGray.cgColor
-//        layer.shadowOffset = CGSize(width: 0, height: 5.0)
-//        layer.shadowRadius = 6
-//        layer.shadowOpacity = 0.3
-//        layer.masksToBounds = false
-//        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: contentView.layer.cornerRadius).cgPath
-//        layer.backgroundColor = UIColor.clear.cgColor
-        
     }
     
 }
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class RecipeDetailController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     // MARK: - IBOutlets
     @IBOutlet var scrollView: UIScrollView!
@@ -97,12 +88,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         didSet {
             guard let recipe = recipe else { return }
             self.updateInterfaceWith(recipe: recipe)
-        }
-    }
-    
-    var colors: UIImageColors! {
-        didSet {
-            setColors()
         }
     }
     
@@ -147,17 +132,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func setupUI() {
         
         self.scrollView.backgroundColor = .systemBackground
+        navigationItem.largeTitleDisplayMode = .never
         
         ingredientsCollectionView.delegate = self
         ingredientsCollectionView.dataSource = self
-        
-        let rightButton1 = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(openURL(_:)))
-        rightButton1.tag = 0
-        let rightButton2 = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(openURL(_:)))
-        rightButton2.tag = 1
-        
-        navigationItem.rightBarButtonItems = [rightButton1, rightButton2]
-        
+                
         let spacing: CGFloat = 15
         
         let layout = UICollectionViewFlowLayout()
@@ -167,9 +146,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         layout.minimumLineSpacing = spacing
         layout.minimumInteritemSpacing = spacing
         ingredientsCollectionView.collectionViewLayout = layout
-        
-        self.navigationController?.navigationBar.prefersLargeTitles = false
-        
+                
         recipeImage.contentMode = .scaleAspectFill
         recipeImage.layer.cornerRadius = 8
         recipeImage.layer.masksToBounds = true
@@ -181,10 +158,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         recipeName.font = UIFont(name: "Merriweather-Black", size: recipeName.font.pointSize)
         details.font = UIFont(name: "Merriweather-Light", size: details.font.pointSize)
         details.textColor = .secondaryLabel
-        // ingredients.font = UIFont(name: "Merriweather-Regular", size: ingredients.font.pointSize)
         directions.font = UIFont(name: "Merriweather-Regular", size: directions.font.pointSize)
         directions.textColor = .label
-//        guard let awesomeFont = UIFont(name: "FontAwesome5BrandsRegular", size: 25) else { return }
         
     }
     
@@ -206,7 +181,30 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         DispatchQueue.main.async {
             
-            self.recipeName.text = recipe.name.uppercased()
+            if (recipe.video != nil) {
+                // has video
+                let playButton = UIImage(systemName: "play.rectangle.fill")
+
+                let rightButton1 = UIBarButtonItem(image: playButton, style: .plain, target: self, action: #selector(self.openURL(_:)))
+                rightButton1.tag = 0
+                self.navigationItem.setRightBarButtonItems([rightButton1], animated: true)
+            }
+            
+            if (recipe.website != nil) {
+                // has webpage or blogpost
+                let webButton = UIImage(systemName: "safari.fill")
+
+                let rightButton2 = UIBarButtonItem(image: webButton, style: .plain, target: self, action: #selector(self.openURL(_:)))
+                rightButton2.tag = 1
+                
+                if (self.navigationItem.rightBarButtonItems != nil) {
+                    self.navigationItem.rightBarButtonItems?.append(rightButton2)
+                } else {
+                    self.navigationItem.setRightBarButton(rightButton2, animated: true)
+                }
+            }
+            
+            self.recipeName.text = recipe.name
             self.recipeName.sizeToFit()
             
             self.details.text = "\(recipe.category) · \(recipe.area)"
@@ -215,16 +213,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             self.ingredientsCollectionView.reloadData()
             self.setIngredientLoading(false)
             
-            
-            
         }
         
-    }
-    
-    func setColors() {
-        
-        
-    
     }
     
     func fetchRecipe(_ id: String) {
@@ -240,10 +230,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let image = UIImage(imageLiteralResourceName: "placeholder")
             guard let imageURL = URL(string: recipeJSON["strMealThumb"].stringValue) else { return }
             self.recipeImage.sd_setImage(with: imageURL, placeholderImage: UIImage(named: "placeholder"), options: SDWebImageOptions.delayPlaceholder, completed: { (img, error, cache, url) in
-
-                img?.getColors(quality: .highest, { (colors) in
-                    self.colors = colors
-                })
                 self.isLoading = false
                 
             })
@@ -272,10 +258,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             let area = recipeJSON["strArea"].stringValue
             let category = recipeJSON["strCategory"].stringValue
             let instructions = recipeJSON["strInstructions"].stringValue.replacingOccurrences(of: "\n", with: "\n\n") // double space
-            let website = recipeJSON["strSource"].stringValue == "" ? URL(string: "www.google.com") : URL(string: recipeJSON["strSource"].stringValue)
-            let video = recipeJSON["strYoutube"].stringValue == "" ? URL(string: "www.google.com") : URL(string: recipeJSON["strYoutube"].stringValue)
             
-            self.recipe = Recipe(id: id, image: image, name: name, category: category, area: area, tags: tags, instructions: instructions, ingredients: ingredients, website: website!, video: video!)
+            let websiteString = recipeJSON["strSource"].stringValue
+            let videoString = recipeJSON["strYoutube"].stringValue
+            
+            let website = URL(string: websiteString)
+            let video = URL(string: videoString)
+            
+            self.recipe = Recipe(id: id, image: image, name: name, category: category, area: area, tags: tags, instructions: instructions, ingredients: ingredients, website: website, video: video)
                         
         }
         

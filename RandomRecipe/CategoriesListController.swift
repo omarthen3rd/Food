@@ -1,5 +1,5 @@
 //
-//  CategoriesCollectionController.swift
+//  CategoriesListController.swift
 //  RandomRecipe
 //
 //  Created by Omar Abbasi on 2019-04-15.
@@ -37,7 +37,6 @@ class CategoryCollectionCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        
         // god bless this person: https://stackoverflow.com/a/50366615/6871025
         
         contentView.backgroundColor = UIColor.secondarySystemBackground
@@ -45,17 +44,6 @@ class CategoryCollectionCell: UICollectionViewCell {
         contentView.layer.borderWidth = 1.0
         contentView.layer.borderColor = UIColor.clear.cgColor
         contentView.layer.masksToBounds = true
-        
-        name.textAlignment = .left
-        
-//        layer.shadowColor = UIColor.tertiarySystemBackground.cgColor
-//        layer.shadowOffset = CGSize(width: 0, height: 5.0)
-//        layer.shadowRadius = 6
-//        layer.shadowOpacity = 0.3
-//        layer.masksToBounds = false
-//        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: contentView.layer.cornerRadius).cgPath
-//        layer.backgroundColor = UIColor.clear.cgColor
-        
     }
     
 }

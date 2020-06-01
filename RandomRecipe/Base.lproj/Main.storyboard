@@ -80,10 +80,10 @@
             </objects>
             <point key="canvasLocation" x="1948" y="133.5832083958021"/>
         </scene>
-        <!--View Controller-->
+        <!--Recipe Detail Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="ViewController" customModule="RandomRecipe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RecipeDetailController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="RecipeDetailController" customModule="RandomRecipe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -94,7 +94,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BHx-Yk-fXu">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="786"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UPh-nV-tN2" customClass="ShadowView" customModule="RandomRecipe" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UPh-nV-tN2">
                                                 <rect key="frame" x="30" y="30" width="315" height="315"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DLG-Jt-Eyj">
@@ -107,7 +107,7 @@
                                                                 <rect key="frame" x="147.5" y="147.5" width="20" height="20"/>
                                                             </activityIndicatorView>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" systemColor="tertiarySystemFillColor" red="0.46274509800000002" green="0.46274509800000002" blue="0.50196078430000002" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstItem="oOn-m4-Lno" firstAttribute="centerX" secondItem="Ryr-L5-cme" secondAttribute="centerX" id="5eh-X6-D4B"/>
                                                             <constraint firstItem="oOn-m4-Lno" firstAttribute="centerY" secondItem="Ryr-L5-cme" secondAttribute="centerY" id="Des-9R-gzT"/>
@@ -264,7 +264,7 @@
                         <constraints>
                             <constraint firstItem="7mc-KQ-LaO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="4fh-dN-o4m"/>
                             <constraint firstItem="7mc-KQ-LaO" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="CJd-Nl-cP1"/>
-                            <constraint firstItem="7mc-KQ-LaO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="J2H-A7-8Zh"/>
+                            <constraint firstItem="7mc-KQ-LaO" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="J2H-A7-8Zh"/>
                             <constraint firstAttribute="bottom" secondItem="7mc-KQ-LaO" secondAttribute="bottom" id="nLC-zY-r8K"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

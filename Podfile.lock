@@ -1,22 +1,18 @@
 PODS:
-  - CyaneaOctopus (0.3.1)
   - SDWebImage (5.0.1):
     - SDWebImage/Core (= 5.0.1)
   - SDWebImage/Core (5.0.1)
 
 DEPENDENCIES:
-  - CyaneaOctopus
   - SDWebImage (~> 5.0)
 
 SPEC REPOS:
   trunk:
-    - CyaneaOctopus
     - SDWebImage
 
 SPEC CHECKSUMS:
-  CyaneaOctopus: 6f683b8cee6c372419993a0e7de240c599edef1c
   SDWebImage: 27dd2c9ea07a2252f94557c9fbb6105ee94b74c9
 
-PODFILE CHECKSUM: 5e7b2558dea26e08f6d537d5261a245e22ceb23b
+PODFILE CHECKSUM: 457283dafad9668e73a32176ac158d6c5a61006b
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1
