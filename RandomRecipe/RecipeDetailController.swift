@@ -67,19 +67,20 @@ class IngredientCell: UICollectionViewCell {
 class RecipeDetailController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     // MARK: - IBOutlets
-    @IBOutlet var scrollView: UIScrollView!
-    @IBOutlet var loadingView: UIView!
-    @IBOutlet var imageContainer: UIView!
-    @IBOutlet var recipeImage: UIImageView!
-    @IBOutlet var recipeName: UILabel!
-    @IBOutlet var details: UILabel!
-    @IBOutlet var ingredientsHeader: UILabel!
-    @IBOutlet var directionsHeader: UILabel!
-    @IBOutlet var directions: UILabel!
+    var scrollView: UIScrollView!
+    var loadingView: UIView!
+    var imageContainer: UIView!
+    var recipeImage: UIImageView!
+    var recipeName: UILabel!
+    var details: UILabel!
+    var ingredientsHeader: UILabel!
+    var directionsHeader: UILabel!
+    var directions: UILabel!
     
-    @IBOutlet var loadingIndicator: UIActivityIndicatorView!
-    @IBOutlet var ingredientsCollectionView: UICollectionView!
-    @IBOutlet var ingredientsCollectionHeight: NSLayoutConstraint!
+    var ingredientsCollectionView: UICollectionView!
+    var ingredientsCollectionHeight: NSLayoutConstraint!
+    
+    var loadingIndicator: UIActivityIndicatorView!
     
     // show loading labels on image
     var isLoading = true {
@@ -138,18 +139,18 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
     
     func createLoadingView() {
         
-        let loadingSymbol = UIActivityIndicatorView(frame: CGRect.zero)
-        loadingSymbol.style = .large
-        loadingSymbol.startAnimating()
-        loadingSymbol.sizeToFit()
-        loadingSymbol.center = view.center
-        loadingSymbol.translatesAutoresizingMaskIntoConstraints = false
+        loadingIndicator = UIActivityIndicatorView(frame: CGRect.zero)
+        loadingIndicator.style = .large
+        loadingIndicator.startAnimating()
+        loadingIndicator.sizeToFit()
+        loadingIndicator.center = view.center
+        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
 
-        view.addSubview(loadingSymbol)
+        view.addSubview(loadingIndicator)
         view.layoutSubviews()
         
-        loadingSymbol.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        loadingSymbol.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor).isActive = true
+        loadingIndicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        loadingIndicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor).isActive = true
         
     }
     
@@ -208,6 +209,10 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func updateInterfaceWith(recipe: Recipe) {
+        
+        // remove loading view
+        
+        loadingIndicator.removeFromSuperview()
         
         print("updating interface with: \(recipe.name)")
 //        DispatchQueue.main.async {
