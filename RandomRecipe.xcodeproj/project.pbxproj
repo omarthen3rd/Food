@@ -589,7 +589,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3472973G7Y;
+				DEVELOPMENT_TEAM = AEA87WCYYX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RandomRecipe/SDWebImage/Products/Library/Frameworks",
@@ -606,7 +606,7 @@
 					"$(PROJECT_DIR)/RandomRecipe/SDWebImage\\ static/Products/usr/local/lib",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.socero.RandomRecipe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.omar.RandomRecipe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -619,7 +619,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3472973G7Y;
+				DEVELOPMENT_TEAM = AEA87WCYYX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RandomRecipe/SDWebImage/Products/Library/Frameworks",
@@ -636,7 +636,7 @@
 					"$(PROJECT_DIR)/RandomRecipe/SDWebImage\\ static/Products/usr/local/lib",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.socero.RandomRecipe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.omar.RandomRecipe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -30,12 +30,21 @@ class IngredientCell: UICollectionViewCell {
         
     }
     
-    func displayData(_ ingredient: Ingredient) {
+    func displayData(_ ingredient: Ingredient, _ row: Int, _ count: Int) {
         
         name.text = ingredient.name
         amount.text = ingredient.amount
         guard let imageView = image else { return }
         imageView.sd_setImage(with: ingredient.image, placeholderImage: UIImage(named: "placeholder")!, options: SDWebImageOptions.scaleDownLargeImages, context: nil)
+        
+        contentView.backgroundColor = .tertiarySystemFill
+        if (row == 0) {
+            contentView.layer.cornerRadius = 8
+            contentView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        } else if (row == count - 1) {
+            contentView.layer.cornerRadius = 8
+            contentView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        }
         
     }
     
@@ -44,11 +53,12 @@ class IngredientCell: UICollectionViewCell {
         
         // god bless this person: https://stackoverflow.com/a/50366615/6871025
         
-        contentView.backgroundColor = UIColor.tertiarySystemBackground
-        contentView.layer.cornerRadius = 5
-        contentView.layer.borderWidth = 0.7
-        contentView.layer.borderColor = UIColor(red:0.64, green:0.69, blue:0.75, alpha:1.0).cgColor
-        contentView.layer.masksToBounds = true
+//        contentView.backgroundColor = .systemGroupedBackground
+//        contentView.layer.cornerRadius = 8
+//        contentView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+//        contentView.layer.borderWidth = 0.7
+//        contentView.layer.borderColor = UIColor(red:0.64, green:0.69, blue:0.75, alpha:1.0).cgColor
+//        contentView.layer.masksToBounds = true
         
     }
     
@@ -69,6 +79,7 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
     
     @IBOutlet var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet var ingredientsCollectionView: UICollectionView!
+    @IBOutlet var ingredientsCollectionHeight: NSLayoutConstraint!
     
     // show loading labels on image
     var isLoading = true {
@@ -140,11 +151,11 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         let spacing: CGFloat = 15
         
         let layout = UICollectionViewFlowLayout()
-        layout.estimatedItemSize = CGSize(width: 130, height: 150)
-        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = spacing
-        layout.minimumInteritemSpacing = spacing
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 30, height: 60)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: spacing, bottom: 0, right: spacing)
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
         ingredientsCollectionView.collectionViewLayout = layout
                 
         recipeImage.contentMode = .scaleAspectFill
@@ -158,7 +169,7 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         recipeName.font = UIFont(name: "Merriweather-Black", size: recipeName.font.pointSize)
         details.font = UIFont(name: "Merriweather-Light", size: details.font.pointSize)
         details.textColor = .secondaryLabel
-        directions.font = UIFont(name: "Merriweather-Regular", size: directions.font.pointSize)
+        directions.font = UIFont(name: "Merriweather-Regular", size: 15)
         directions.textColor = .label
         
     }
@@ -211,6 +222,11 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
             self.directions.text = recipe.instructions
             
             self.ingredientsCollectionView.reloadData()
+            
+            let height = self.ingredientsCollectionView.collectionViewLayout.collectionViewContentSize.height
+            self.ingredientsCollectionHeight.constant = height
+            self.view.setNeedsLayout()
+            
             self.setIngredientLoading(false)
             
         }
@@ -248,7 +264,6 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
                 ingredients.append(newIngredient)
                 
                 index += 1
-                
             }
             
             // get all other values
@@ -287,14 +302,10 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ingredientCell", for: indexPath) as! IngredientCell
         
         let ingredient = recipe.ingredients[indexPath.row]
-        cell.displayData(ingredient)
+        cell.displayData(ingredient, indexPath.row, recipe.ingredients.count)
         
         return cell
         
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 130, height: 150)
     }
     
     // MARK: - Data handler function

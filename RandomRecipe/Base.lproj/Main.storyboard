@@ -92,7 +92,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BHx-Yk-fXu">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="786"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="686"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UPh-nV-tN2">
                                                 <rect key="frame" x="30" y="30" width="315" height="315"/>
@@ -146,59 +146,59 @@
                                                 <color key="highlightedColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             </label>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Cyv-fo-mQh">
-                                                <rect key="frame" x="0.0" y="482.5" width="375" height="180"/>
+                                                <rect key="frame" x="0.0" y="482.5" width="375" height="80"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="180" id="m4E-2D-FKb"/>
+                                                    <constraint firstAttribute="height" priority="999" constant="80" id="m4E-2D-FKb"/>
                                                 </constraints>
                                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="kG6-Ns-tJK">
-                                                    <size key="itemSize" width="108" height="70"/>
+                                                    <size key="itemSize" width="315" height="50"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ingredientCell" id="sZf-0i-9aD" customClass="IngredientCell" customModule="RandomRecipe" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="15" width="150" height="150"/>
+                                                        <rect key="frame" x="0.0" y="10" width="315" height="60"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                                            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="315" height="60"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lUh-a9-EOC">
-                                                                    <rect key="frame" x="10" y="10" width="130" height="80"/>
+                                                                    <rect key="frame" x="10" y="10" width="40" height="40"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" constant="130" id="0b9-yZ-sjf"/>
-                                                                        <constraint firstAttribute="height" constant="80" id="Fxb-9b-0Ob"/>
+                                                                        <constraint firstAttribute="height" constant="40" id="64l-Jv-RJv"/>
+                                                                        <constraint firstAttribute="width" constant="40" id="TCN-9G-TGe"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HO6-e6-lpu">
-                                                                    <rect key="frame" x="10" y="129" width="130" height="16"/>
-                                                                    <fontDescription key="fontDescription" name="Merriweather-Light" family="Merriweather Light" pointSize="12"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RLx-wE-aLr">
+                                                                    <rect key="frame" x="60" y="10" width="245" height="21"/>
+                                                                    <fontDescription key="fontDescription" name="Merriweather-Regular" family="Merriweather" pointSize="16"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RLx-wE-aLr">
-                                                                    <rect key="frame" x="10" y="103" width="130" height="21"/>
-                                                                    <fontDescription key="fontDescription" name="Merriweather-Regular" family="Merriweather" pointSize="16"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HO6-e6-lpu">
+                                                                    <rect key="frame" x="60" y="34" width="245" height="16"/>
+                                                                    <fontDescription key="fontDescription" name="Merriweather-Light" family="Merriweather Light" pointSize="12"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
                                                         </view>
                                                         <constraints>
-                                                            <constraint firstItem="lUh-a9-EOC" firstAttribute="top" secondItem="sZf-0i-9aD" secondAttribute="top" constant="10" id="1aF-OP-QOe"/>
-                                                            <constraint firstAttribute="bottom" secondItem="HO6-e6-lpu" secondAttribute="bottom" constant="5" id="1rW-gN-Fkl"/>
-                                                            <constraint firstAttribute="trailing" secondItem="HO6-e6-lpu" secondAttribute="trailing" constant="10" id="B7L-bp-LMd"/>
-                                                            <constraint firstItem="HO6-e6-lpu" firstAttribute="leading" secondItem="sZf-0i-9aD" secondAttribute="leading" constant="10" id="DLg-2k-M5Z"/>
-                                                            <constraint firstItem="RLx-wE-aLr" firstAttribute="top" secondItem="lUh-a9-EOC" secondAttribute="bottom" constant="13" id="DkJ-Q5-MTT"/>
-                                                            <constraint firstAttribute="trailing" secondItem="RLx-wE-aLr" secondAttribute="trailing" constant="10" id="I2D-Wj-Tcy"/>
-                                                            <constraint firstItem="HO6-e6-lpu" firstAttribute="top" secondItem="RLx-wE-aLr" secondAttribute="bottom" constant="5" id="Lwc-Nw-oj8"/>
-                                                            <constraint firstItem="RLx-wE-aLr" firstAttribute="leading" secondItem="sZf-0i-9aD" secondAttribute="leading" constant="10" id="iiB-HK-iAA"/>
-                                                            <constraint firstAttribute="trailing" secondItem="lUh-a9-EOC" secondAttribute="trailing" constant="10" id="jhc-Rv-J7J"/>
-                                                            <constraint firstItem="lUh-a9-EOC" firstAttribute="leading" secondItem="sZf-0i-9aD" secondAttribute="leading" constant="10" id="sDP-J7-dFL"/>
+                                                            <constraint firstAttribute="trailing" secondItem="HO6-e6-lpu" secondAttribute="trailing" constant="10" id="1sO-ae-7ma"/>
+                                                            <constraint firstItem="HO6-e6-lpu" firstAttribute="leading" secondItem="lUh-a9-EOC" secondAttribute="trailing" constant="10" id="2fT-ku-ObS"/>
+                                                            <constraint firstItem="RLx-wE-aLr" firstAttribute="leading" secondItem="lUh-a9-EOC" secondAttribute="trailing" constant="10" id="9EF-Wu-whM"/>
+                                                            <constraint firstItem="lUh-a9-EOC" firstAttribute="top" secondItem="sZf-0i-9aD" secondAttribute="top" constant="10" id="BuC-oc-6vj"/>
+                                                            <constraint firstAttribute="bottom" secondItem="lUh-a9-EOC" secondAttribute="bottom" constant="10" id="LsW-5N-zM0"/>
+                                                            <constraint firstItem="HO6-e6-lpu" firstAttribute="top" secondItem="RLx-wE-aLr" secondAttribute="bottom" constant="3" id="fMu-Qe-IOb"/>
+                                                            <constraint firstItem="RLx-wE-aLr" firstAttribute="top" secondItem="sZf-0i-9aD" secondAttribute="top" constant="10" id="gRw-qa-Gj8"/>
+                                                            <constraint firstAttribute="trailing" secondItem="RLx-wE-aLr" secondAttribute="trailing" constant="10" id="hZZ-PG-4XA"/>
+                                                            <constraint firstAttribute="bottom" secondItem="HO6-e6-lpu" secondAttribute="bottom" constant="10" id="j20-X4-Swg"/>
+                                                            <constraint firstItem="lUh-a9-EOC" firstAttribute="leading" secondItem="sZf-0i-9aD" secondAttribute="leading" constant="10" id="z9D-IM-2bf"/>
                                                         </constraints>
-                                                        <size key="customSize" width="150" height="150"/>
+                                                        <size key="customSize" width="315" height="60"/>
                                                         <connections>
                                                             <outlet property="amount" destination="HO6-e6-lpu" id="SJE-x8-Q7l"/>
                                                             <outlet property="image" destination="lUh-a9-EOC" id="Rch-JQ-AJa"/>
@@ -212,12 +212,12 @@
                                                 </connections>
                                             </collectionView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DIRECTIONS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bja-PU-j8K">
-                                                <rect key="frame" x="25" y="687.5" width="325" height="24"/>
+                                                <rect key="frame" x="25" y="587.5" width="325" height="24"/>
                                                 <fontDescription key="fontDescription" name="Merriweather-Bold" family="Merriweather" pointSize="19"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WDS-mD-X45">
-                                                <rect key="frame" x="25" y="716.5" width="325" height="19.5"/>
+                                                <rect key="frame" x="25" y="616.5" width="325" height="19.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
@@ -246,7 +246,7 @@
                                             <constraint firstAttribute="trailing" secondItem="0SV-de-v10" secondAttribute="trailing" constant="25" id="ru4-ao-bTR"/>
                                             <constraint firstItem="WDS-mD-X45" firstAttribute="leading" secondItem="BHx-Yk-fXu" secondAttribute="leading" constant="25" id="tcE-G4-a4l"/>
                                             <constraint firstAttribute="bottom" secondItem="WDS-mD-X45" secondAttribute="bottom" constant="50" id="tqK-pb-hvx"/>
-                                            <constraint firstItem="Bja-PU-j8K" firstAttribute="top" secondItem="Cyv-fo-mQh" secondAttribute="bottom" constant="25" id="yZR-eS-eTw"/>
+                                            <constraint firstItem="Bja-PU-j8K" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Cyv-fo-mQh" secondAttribute="bottom" constant="25" id="yZR-eS-eTw"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -260,7 +260,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="7mc-KQ-LaO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="4fh-dN-o4m"/>
                             <constraint firstItem="7mc-KQ-LaO" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="CJd-Nl-cP1"/>
@@ -274,6 +274,7 @@
                         <outlet property="directions" destination="WDS-mD-X45" id="gkg-eh-dl0"/>
                         <outlet property="directionsHeader" destination="Bja-PU-j8K" id="Vdt-IF-lU9"/>
                         <outlet property="imageContainer" destination="UPh-nV-tN2" id="B8I-dF-VNA"/>
+                        <outlet property="ingredientsCollectionHeight" destination="m4E-2D-FKb" id="uMe-EO-4Tt"/>
                         <outlet property="ingredientsCollectionView" destination="Cyv-fo-mQh" id="OFg-Dh-ci2"/>
                         <outlet property="ingredientsHeader" destination="ohR-bp-F6c" id="LgE-In-HT9"/>
                         <outlet property="loadingIndicator" destination="oOn-m4-Lno" id="KBY-NI-vmZ"/>
