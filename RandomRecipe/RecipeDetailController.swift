@@ -91,7 +91,7 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
     var id = "" {
         didSet {
             guard id.count != 0 else { return }
-            fetchRecipe(id)
+//            fetchRecipe(id)
         }
     }
     
@@ -107,19 +107,15 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         // Do any additional setup after loading the view, typically from a nib.
         
         isLoading = true
-        setIngredientLoading(true)
-        setupUI()
+//        setIngredientLoading(true)
+//        setupUI()
         
     }
     
     func setLoading(_ loading: Bool) {
         
         if loading {
-            scrollView.isScrollEnabled = false
-            loadingView.isHidden = false
-            loadingIndicator.startAnimating()
-            ingredientsHeader.isHidden = true
-            directionsHeader.isHidden = true
+            createLoadingView()
         } else {
             scrollView.isScrollEnabled = true
             loadingView.isHidden = true
@@ -137,6 +133,31 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         } else {
             ingredientsCollectionView.isScrollEnabled = true
         }
+        
+    }
+    
+    func createLoadingView() {
+        
+        let loadingSymbol = UIActivityIndicatorView(frame: CGRect.zero)
+        loadingSymbol.style = .large
+        loadingSymbol.startAnimating()
+        loadingSymbol.sizeToFit()
+        loadingSymbol.center = view.center
+        loadingSymbol.translatesAutoresizingMaskIntoConstraints = false
+
+        view.addSubview(loadingSymbol)
+        view.layoutSubviews()
+        
+        loadingSymbol.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        loadingSymbol.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor).isActive = true
+        
+    }
+    
+    func createUI() {
+        
+        // use stackview as base
+        
+//        var heroImage = UIImageView
         
     }
     
@@ -189,47 +210,52 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
     func updateInterfaceWith(recipe: Recipe) {
         
         print("updating interface with: \(recipe.name)")
+//        DispatchQueue.main.async {
+//            for view in self.view.subviews {
+//                view.removeFromSuperview()
+//            }
+//        }
         
-        DispatchQueue.main.async {
-            
-            if (recipe.video != nil) {
-                // has video
-                let playButton = UIImage(systemName: "play.rectangle.fill")
-
-                let rightButton1 = UIBarButtonItem(image: playButton, style: .plain, target: self, action: #selector(self.openURL(_:)))
-                rightButton1.tag = 0
-                self.navigationItem.setRightBarButtonItems([rightButton1], animated: true)
-            }
-            
-            if (recipe.website != nil) {
-                // has webpage or blogpost
-                let webButton = UIImage(systemName: "safari.fill")
-
-                let rightButton2 = UIBarButtonItem(image: webButton, style: .plain, target: self, action: #selector(self.openURL(_:)))
-                rightButton2.tag = 1
-                
-                if (self.navigationItem.rightBarButtonItems != nil) {
-                    self.navigationItem.rightBarButtonItems?.append(rightButton2)
-                } else {
-                    self.navigationItem.setRightBarButton(rightButton2, animated: true)
-                }
-            }
-            
-            self.recipeName.text = recipe.name
-            self.recipeName.sizeToFit()
-            
-            self.details.text = "\(recipe.category) · \(recipe.area)"
-            self.directions.text = recipe.instructions
-            
-            self.ingredientsCollectionView.reloadData()
-            
-            let height = self.ingredientsCollectionView.collectionViewLayout.collectionViewContentSize.height
-            self.ingredientsCollectionHeight.constant = height
-            self.view.setNeedsLayout()
-            
-            self.setIngredientLoading(false)
-            
-        }
+//        DispatchQueue.main.async {
+//
+//            if (recipe.video != nil) {
+//                // has video
+//                let playButton = UIImage(systemName: "play.rectangle.fill")
+//
+//                let rightButton1 = UIBarButtonItem(image: playButton, style: .plain, target: self, action: #selector(self.openURL(_:)))
+//                rightButton1.tag = 0
+//                self.navigationItem.setRightBarButtonItems([rightButton1], animated: true)
+//            }
+//
+//            if (recipe.website != nil) {
+//                // has webpage or blogpost
+//                let webButton = UIImage(systemName: "safari.fill")
+//
+//                let rightButton2 = UIBarButtonItem(image: webButton, style: .plain, target: self, action: #selector(self.openURL(_:)))
+//                rightButton2.tag = 1
+//
+//                if (self.navigationItem.rightBarButtonItems != nil) {
+//                    self.navigationItem.rightBarButtonItems?.append(rightButton2)
+//                } else {
+//                    self.navigationItem.setRightBarButton(rightButton2, animated: true)
+//                }
+//            }
+//
+//            self.recipeName.text = recipe.name
+//            self.recipeName.sizeToFit()
+//
+//            self.details.text = "\(recipe.category) · \(recipe.area)"
+//            self.directions.text = recipe.instructions
+//
+//            self.ingredientsCollectionView.reloadData()
+//
+//            let height = self.ingredientsCollectionView.collectionViewLayout.collectionViewContentSize.height
+//            self.ingredientsCollectionHeight.constant = height
+//            self.view.setNeedsLayout()
+//
+//            self.setIngredientLoading(false)
+//
+//        }
         
     }
     
