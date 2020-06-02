@@ -31,6 +31,18 @@
 		<string>Merriweather-Regular.ttf</string>
 		<string>Merriweather-Bold.ttf</string>
 		<string>Merriweather-Black.ttf</string>
+		<string>NewYorkSmall-Black.otf</string>
+		<string>NewYorkSmall-BlackItalic.otf</string>
+		<string>NewYorkSmall-Bold.otf</string>
+		<string>NewYorkSmall-BoldItalic.otf</string>
+		<string>NewYorkSmall-Heavy.otf</string>
+		<string>NewYorkSmall-HeavyItalic.otf</string>
+		<string>NewYorkSmall-Medium.otf</string>
+		<string>NewYorkSmall-MediumItalic.otf</string>
+		<string>NewYorkSmall-Regular.otf</string>
+		<string>NewYorkSmall-RegularItalic.otf</string>
+		<string>NewYorkSmall-Semibold.otf</string>
+		<string>NewYorkSmall-SemiboldItalic.otf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
