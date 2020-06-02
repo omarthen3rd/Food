@@ -67,12 +67,10 @@ class IngredientCell: UICollectionViewCell {
 class RecipeDetailController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     // MARK: - IBOutlets
-    var scrollView: UIScrollView!
     var loadingView: UIView!
     var imageContainer: UIView!
     var recipeImage: UIImageView!
-    var recipeName: UILabel!
-    var details: UILabel!
+    
     var ingredientsHeader: UILabel!
     var directionsHeader: UILabel!
     var directions: UILabel!
@@ -81,6 +79,12 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
     var ingredientsCollectionHeight: NSLayoutConstraint!
     
     var loadingIndicator: UIActivityIndicatorView!
+    
+    var scrollView = UIScrollView()
+    var containerView = UIView()
+    var heroImage: UIImageView!
+    var recipeName: UILabel!
+    var recipeDetails: UILabel!
     
     // show loading labels on image
     var isLoading = true {
@@ -92,14 +96,16 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
     var id = "" {
         didSet {
             guard id.count != 0 else { return }
-//            fetchRecipe(id)
+            fetchRecipe(id)
         }
     }
     
     var recipe: Recipe! {
         didSet {
             guard let recipe = recipe else { return }
-            self.updateInterfaceWith(recipe: recipe)
+            DispatchQueue.main.async {
+                self.updateInterfaceWith(recipe: recipe)
+            }
         }
     }
     
@@ -107,22 +113,31 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        isLoading = true
-//        setIngredientLoading(true)
-//        setupUI()
+        for name in UIFont.familyNames {
+          print(name)
+          if let nameString = name as? String {
+            print(UIFont.fontNames(forFamilyName: nameString))
+          }
+        }
+
         
+        navigationItem.largeTitleDisplayMode = .never
+        
+        isLoading = true
+        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        scrollView.frame = view.bounds
+        containerView.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
     }
     
     func setLoading(_ loading: Bool) {
         
         if loading {
             createLoadingView()
-        } else {
-            scrollView.isScrollEnabled = true
-            loadingView.isHidden = true
-            loadingIndicator.stopAnimating()
-            ingredientsHeader.isHidden = false
-            directionsHeader.isHidden = false
         }
         
     }
@@ -154,14 +169,6 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         
     }
     
-    func createUI() {
-        
-        // use stackview as base
-        
-//        var heroImage = UIImageView
-        
-    }
-    
     func setupUI() {
         
         self.scrollView.backgroundColor = .systemBackground
@@ -179,18 +186,10 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         ingredientsCollectionView.collectionViewLayout = layout
-                
-        recipeImage.contentMode = .scaleAspectFill
-        recipeImage.layer.cornerRadius = 8
-        recipeImage.layer.masksToBounds = true
-        recipeImage.layer.borderWidth = 1.0
-        recipeImage.layer.borderColor = UIColor.clear.cgColor
         
         imageContainer.backgroundColor = UIColor.clear
         
         recipeName.font = UIFont(name: "Merriweather-Black", size: recipeName.font.pointSize)
-        details.font = UIFont(name: "Merriweather-Light", size: details.font.pointSize)
-        details.textColor = .secondaryLabel
         directions.font = UIFont(name: "Merriweather-Regular", size: 15)
         directions.textColor = .label
         
@@ -210,11 +209,116 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
     
     func updateInterfaceWith(recipe: Recipe) {
         
-        // remove loading view
+        print("updating interface with: \(recipe.name)")
         
         loadingIndicator.removeFromSuperview()
         
-        print("updating interface with: \(recipe.name)")
+        // start creating views
+        containerView = UIView(frame: UIScreen.main.bounds)
+
+        scrollView = UIScrollView(frame: UIScreen.main.bounds)
+        scrollView.delegate = self
+        scrollView.backgroundColor = .systemBackground
+        scrollView.addSubview(containerView)
+        view.addSubview(scrollView)
+        
+        // hero image
+        heroImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
+        heroImage.layer.cornerRadius = 8
+        heroImage.layer.masksToBounds = true
+        heroImage.sd_setImage(with: recipe.image, placeholderImage: UIImage(named: "placeholder"), options: SDWebImageOptions.delayPlaceholder, completed: { (img, error, cache, url) in
+            self.isLoading = false
+        })
+        heroImage.translatesAutoresizingMaskIntoConstraints = false
+        
+        // recipe website/video buttons
+        let buttonStackView = UIStackView()
+        buttonStackView.alignment = .fill
+        buttonStackView.axis = .horizontal
+        buttonStackView.distribution = .fillEqually
+        buttonStackView.spacing = 25
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        if (recipe.video != nil) {
+            let playButtonImage = UIImage(systemName: "play.rectangle.fill")
+            let playButton = UIButton(frame: CGRect.zero)
+            playButton.setImage(playButtonImage, for: [])
+            playButton.imageView?.tintColor = .label
+            playButton.backgroundColor = .secondarySystemBackground
+            playButton.layer.cornerRadius = 8
+            playButton.setTitle(" Watch", for: [])
+            playButton.setTitleColor(.label, for: [])
+            
+            buttonStackView.addArrangedSubview(playButton)
+            playButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        }
+        
+        if (recipe.website != nil) {
+            let webButtonImage = UIImage(systemName: "safari.fill")
+            let webButton = UIButton(frame: CGRect.zero)
+            webButton.setImage(webButtonImage, for: [])
+            webButton.imageView?.tintColor = .label
+            webButton.backgroundColor = .secondarySystemBackground
+            webButton.layer.cornerRadius = 8
+            webButton.setTitle(" Read", for: [])
+            webButton.setTitleColor(.label, for: [])
+            
+            buttonStackView.addArrangedSubview(webButton)
+            webButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        }
+        
+        // recipe name
+        recipeName = UILabel(frame: CGRect.zero)
+        recipeName.text = recipe.name
+        recipeName.font = UIFont(name: "NewYorkSmall-Bold", size: 25)
+        recipeName.textColor = .label
+        recipeName.sizeToFit()
+        recipeName.translatesAutoresizingMaskIntoConstraints = false
+        
+        // recipe description
+        recipeDetails = UILabel(frame: CGRect.zero)
+        recipeDetails.text = "\(recipe.category) · \(recipe.area)"
+        recipeDetails.font = UIFont(name: "NewYorkSmall-Regular", size: 18)
+        recipeDetails.textColor = .secondaryLabel
+        recipeDetails.sizeToFit()
+        recipeDetails.translatesAutoresizingMaskIntoConstraints = false
+        
+        containerView.addSubview(heroImage)
+        containerView.addSubview(buttonStackView)
+        containerView.addSubview(recipeName)
+        containerView.addSubview(recipeDetails)
+        
+        // constraints
+        let baseSpacing: CGFloat = 20
+        
+        let mainConstraints = [
+            
+            // hero image
+            heroImage.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: baseSpacing * -1),
+            heroImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: baseSpacing),
+            heroImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: baseSpacing),
+            heroImage.heightAnchor.constraint(equalTo: heroImage.widthAnchor, multiplier: 1, constant: 0),
+            
+            // read/watch button
+            buttonStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: baseSpacing * -1),
+            buttonStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: baseSpacing),
+            buttonStackView.topAnchor.constraint(equalTo: heroImage.bottomAnchor, constant: baseSpacing),
+            
+            // recipe name label
+            recipeName.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: baseSpacing * -1),
+            recipeName.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: baseSpacing),
+            recipeName.topAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: 15),
+            
+            // recipe name label
+            recipeDetails.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: baseSpacing * -1),
+            recipeDetails.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: baseSpacing),
+            recipeDetails.topAnchor.constraint(equalTo: recipeName.bottomAnchor, constant: 5),
+        ]
+
+        NSLayoutConstraint.activate(mainConstraints)
+
+        // remove loading view
+        
 //        DispatchQueue.main.async {
 //            for view in self.view.subviews {
 //                view.removeFromSuperview()
@@ -266,7 +370,7 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
     
     func fetchRecipe(_ id: String) {
         
-        print("\(#function): fetching recipe with id: \(id)")
+        print("\(#function) - fetching recipe with id: \(id)")
         guard let url = URL(string: "https://www.themealdb.com/api/json/v1/1/lookup.php?i=\(id)") else { return }
         getData(from: url) { (data, response, error) in
             
@@ -274,14 +378,8 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
             let json = JSON(data)
             let recipeJSON = json["meals"].arrayValue[0]
             // get image from URL
-            let image = UIImage(imageLiteralResourceName: "placeholder")
-            guard let imageURL = URL(string: recipeJSON["strMealThumb"].stringValue) else { return }
-            self.recipeImage.sd_setImage(with: imageURL, placeholderImage: UIImage(named: "placeholder"), options: SDWebImageOptions.delayPlaceholder, completed: { (img, error, cache, url) in
-                self.isLoading = false
-                
-            })
-            
-            print("getting other values...")
+            let imageURL = URL(string: recipeJSON["strMealThumb"].stringValue)
+
             // get ingredients
             var ingredients = [Ingredient]()
             var index = 1
@@ -311,7 +409,7 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
             let website = URL(string: websiteString)
             let video = URL(string: videoString)
             
-            self.recipe = Recipe(id: id, image: image, name: name, category: category, area: area, tags: tags, instructions: instructions, ingredients: ingredients, website: website, video: video)
+            self.recipe = Recipe(id: id, image: imageURL, name: name, category: category, area: area, tags: tags, instructions: instructions, ingredients: ingredients, website: website, video: video)
                         
         }
         

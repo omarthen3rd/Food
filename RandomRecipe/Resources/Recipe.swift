@@ -11,7 +11,7 @@ import UIKit
 class Recipe {
     
     var id: String
-    var image: UIImage
+    var image: URL?
     var name: String
     var category: String
     var area: String
@@ -21,7 +21,7 @@ class Recipe {
     var website: URL?
     var video: URL?
     
-    init(id: String, image: UIImage, name: String, category: String, area: String, tags: String, instructions: String, ingredients: [Ingredient], website: URL?, video: URL?) {
+    init(id: String, image: URL?, name: String, category: String, area: String, tags: String, instructions: String, ingredients: [Ingredient], website: URL?, video: URL?) {
         
         self.id = id
         self.image = image

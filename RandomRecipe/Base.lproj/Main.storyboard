@@ -16,6 +16,9 @@
         <array key="Merriweather-Regular.ttf">
             <string>Merriweather-Regular</string>
         </array>
+        <array key="NewYorkSmall-Bold.otf">
+            <string>NewYorkSmall-Bold</string>
+        </array>
     </customFonts>
     <scenes>
         <!--Recipes Controller-->
@@ -88,23 +91,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9y1-po-B06">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9y1-po-B06">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pH2-iC-S4v">
-                                        <rect key="frame" x="0.0" y="0.0" width="188.5" height="671"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pH2-iC-S4v">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="670"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LR7-Ni-WGE">
-                                                <rect key="frame" x="30" y="30" width="128.5" height="128.5"/>
+                                                <rect key="frame" x="30" y="30" width="315" height="315"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rnU-9B-q0f">
-                                                        <rect key="frame" x="0.0" y="0.0" width="128.5" height="128.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="315"/>
                                                     </imageView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qdD-YT-ReU">
-                                                        <rect key="frame" x="0.0" y="0.0" width="128.5" height="128.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="315" height="315"/>
                                                         <subviews>
                                                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="BK2-U3-70d">
-                                                                <rect key="frame" x="54.5" y="54.5" width="20" height="20"/>
+                                                                <rect key="frame" x="147.5" y="147.5" width="20" height="20"/>
                                                             </activityIndicatorView>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="tertiarySystemFillColor" red="0.46274509800000002" green="0.46274509800000002" blue="0.50196078430000002" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
@@ -129,24 +132,24 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GvK-zD-okl">
-                                                <rect key="frame" x="25" y="183.5" width="138.5" height="31.5"/>
+                                                <rect key="frame" x="25" y="370" width="325" height="31.5"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U7K-PR-IRe">
-                                                <rect key="frame" x="25" y="220" width="138.5" height="22"/>
+                                                <rect key="frame" x="25" y="406.5" width="325" height="22"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <color key="textColor" white="0.45000000000000001" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="INGREDIENTS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lHM-rL-dSv">
-                                                <rect key="frame" x="25" y="267" width="138.5" height="24"/>
-                                                <fontDescription key="fontDescription" name="Merriweather-Bold" family="Merriweather" pointSize="19"/>
+                                                <rect key="frame" x="25" y="453.5" width="325" height="23"/>
+                                                <fontDescription key="fontDescription" name="NewYorkSmall-Bold" family="New York Small" pointSize="19"/>
                                                 <color key="highlightedColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             </label>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LM8-pT-t2l">
-                                                <rect key="frame" x="0.0" y="301" width="188.5" height="60"/>
+                                                <rect key="frame" x="0.0" y="486.5" width="375" height="60"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" priority="999" constant="60" id="W6s-Sg-eGs"/>
@@ -159,7 +162,7 @@
                                                 </collectionViewFlowLayout>
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ingredientCell" id="GZ7-Gi-0we" customClass="IngredientCell" customModule="RandomRecipe" customModuleProvider="target">
-                                                        <rect key="frame" x="-63.5" y="0.0" width="315" height="60"/>
+                                                        <rect key="frame" x="30" y="0.0" width="315" height="60"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                             <rect key="frame" x="0.0" y="0.0" width="315" height="60"/>
@@ -211,13 +214,13 @@
                                                     <outlet property="delegate" destination="BYZ-38-t0r" id="Z4E-QP-9yM"/>
                                                 </connections>
                                             </collectionView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="DIRECTIONS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qF5-bC-u8e">
-                                                <rect key="frame" x="25" y="572.5" width="138.5" height="24"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DIRECTIONS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qF5-bC-u8e">
+                                                <rect key="frame" x="25" y="571.5" width="325" height="24"/>
                                                 <fontDescription key="fontDescription" name="Merriweather-Bold" family="Merriweather" pointSize="19"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wPF-dT-8Rq">
-                                                <rect key="frame" x="25" y="601.5" width="138.5" height="19.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wPF-dT-8Rq">
+                                                <rect key="frame" x="25" y="600.5" width="325" height="19.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
@@ -261,6 +264,12 @@
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="9y1-po-B06" firstAttribute="trailing" secondItem="gxq-ba-kuM" secondAttribute="trailing" id="VxF-tB-O8K"/>
+                            <constraint firstItem="9y1-po-B06" firstAttribute="top" secondItem="gxq-ba-kuM" secondAttribute="top" id="XXv-si-CG6"/>
+                            <constraint firstItem="9y1-po-B06" firstAttribute="bottom" secondItem="gxq-ba-kuM" secondAttribute="bottom" id="kZl-gm-Ud3"/>
+                            <constraint firstItem="9y1-po-B06" firstAttribute="leading" secondItem="gxq-ba-kuM" secondAttribute="leading" id="nVB-sr-ksF"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="gxq-ba-kuM"/>
                     </view>
                 </viewController>
