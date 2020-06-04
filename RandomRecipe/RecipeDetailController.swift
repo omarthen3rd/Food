@@ -32,6 +32,8 @@ class IngredientCell: UICollectionViewCell {
     
     func displayData(_ ingredient: Ingredient, _ row: Int, _ count: Int) {
         
+        print(ingredient)
+        
         name.text = ingredient.name
         amount.text = ingredient.amount
         guard let imageView = image else { return }
@@ -71,12 +73,8 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
     var imageContainer: UIView!
     var recipeImage: UIImageView!
     
-    var ingredientsHeader: UILabel!
     var directionsHeader: UILabel!
     var directions: UILabel!
-    
-    var ingredientsCollectionView: UICollectionView!
-    var ingredientsCollectionHeight: NSLayoutConstraint!
     
     var loadingIndicator: UIActivityIndicatorView!
     
@@ -85,6 +83,10 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
     var heroImage: UIImageView!
     var recipeName: UILabel!
     var recipeDetails: UILabel!
+    var ingredientsHeader: UILabel!
+    var ingredientsCollectionView: UICollectionView!
+    
+    var reuseIdentifier = "ingredientCell"
     
     // show loading labels on image
     var isLoading = true {
@@ -113,16 +115,7 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        for name in UIFont.familyNames {
-          print(name)
-          if let nameString = name as? String {
-            print(UIFont.fontNames(forFamilyName: nameString))
-          }
-        }
-
-        
         navigationItem.largeTitleDisplayMode = .never
-        
         isLoading = true
         
     }
@@ -169,32 +162,6 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         
     }
     
-    func setupUI() {
-        
-        self.scrollView.backgroundColor = .systemBackground
-        navigationItem.largeTitleDisplayMode = .never
-        
-        ingredientsCollectionView.delegate = self
-        ingredientsCollectionView.dataSource = self
-                
-        let spacing: CGFloat = 15
-        
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 30, height: 60)
-        layout.sectionInset = UIEdgeInsets(top: 0, left: spacing, bottom: 0, right: spacing)
-        layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
-        ingredientsCollectionView.collectionViewLayout = layout
-        
-        imageContainer.backgroundColor = UIColor.clear
-        
-        recipeName.font = UIFont(name: "Merriweather-Black", size: recipeName.font.pointSize)
-        directions.font = UIFont(name: "Merriweather-Regular", size: 15)
-        directions.textColor = .label
-        
-    }
-    
     @objc func openURL(_ button: UIBarButtonItem) {
         
         if button.tag == 0 {
@@ -229,7 +196,6 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         heroImage.sd_setImage(with: recipe.image, placeholderImage: UIImage(named: "placeholder"), options: SDWebImageOptions.delayPlaceholder, completed: { (img, error, cache, url) in
             self.isLoading = false
         })
-        heroImage.translatesAutoresizingMaskIntoConstraints = false
         
         // recipe website/video buttons
         let buttonStackView = UIStackView()
@@ -237,7 +203,6 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         buttonStackView.axis = .horizontal
         buttonStackView.distribution = .fillEqually
         buttonStackView.spacing = 25
-        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
         
         if (recipe.video != nil) {
             let playButtonImage = UIImage(systemName: "play.rectangle.fill")
@@ -273,20 +238,53 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         recipeName.font = UIFont(name: "NewYorkSmall-Bold", size: 25)
         recipeName.textColor = .label
         recipeName.sizeToFit()
-        recipeName.translatesAutoresizingMaskIntoConstraints = false
         
-        // recipe description
+        // recipe details
         recipeDetails = UILabel(frame: CGRect.zero)
         recipeDetails.text = "\(recipe.category) · \(recipe.area)"
         recipeDetails.font = UIFont(name: "NewYorkSmall-Regular", size: 18)
         recipeDetails.textColor = .secondaryLabel
         recipeDetails.sizeToFit()
-        recipeDetails.translatesAutoresizingMaskIntoConstraints = false
         
+        // recipe ingredients header
+        ingredientsHeader = UILabel(frame: CGRect.zero)
+        ingredientsHeader.text = "Ingredients"
+        ingredientsHeader.font = UIFont(name: "NewYorkSmall-Semibold", size: 19)
+        ingredientsHeader.textColor = .label
+        ingredientsHeader.sizeToFit()
+        
+        // ingredients collectionview
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 50, height: 60)
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        
+        ingredientsCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 200, height: 200), collectionViewLayout: layout)
+        ingredientsCollectionView.delegate = self
+        ingredientsCollectionView.dataSource = self
+        ingredientsCollectionView.register(IngredientCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        ingredientsCollectionView.reloadData()
+        
+        // add all the views
         containerView.addSubview(heroImage)
         containerView.addSubview(buttonStackView)
         containerView.addSubview(recipeName)
         containerView.addSubview(recipeDetails)
+        containerView.addSubview(ingredientsHeader)
+        containerView.addSubview(ingredientsCollectionView)
+        
+        heroImage.translatesAutoresizingMaskIntoConstraints = false
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+        recipeName.translatesAutoresizingMaskIntoConstraints = false
+        recipeDetails.translatesAutoresizingMaskIntoConstraints = false
+        ingredientsHeader.translatesAutoresizingMaskIntoConstraints = false
+        ingredientsCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let ingredientsCollectionViewHeight = ingredientsCollectionView.collectionViewLayout.collectionViewContentSize.height
+        print(ingredientsCollectionViewHeight)
         
         // constraints
         let baseSpacing: CGFloat = 20
@@ -309,62 +307,24 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
             recipeName.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: baseSpacing),
             recipeName.topAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: 15),
             
-            // recipe name label
+            // recipe details label
             recipeDetails.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: baseSpacing * -1),
             recipeDetails.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: baseSpacing),
             recipeDetails.topAnchor.constraint(equalTo: recipeName.bottomAnchor, constant: 5),
+            
+            // recipe ingredients header label
+            ingredientsHeader.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: baseSpacing * -1),
+            ingredientsHeader.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: baseSpacing),
+            ingredientsHeader.topAnchor.constraint(equalTo: recipeDetails.bottomAnchor, constant: baseSpacing),
+            
+            // recipe ingredients collectionview
+            ingredientsCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: baseSpacing * -1),
+            ingredientsCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: baseSpacing),
+            ingredientsCollectionView.topAnchor.constraint(equalTo: ingredientsHeader.bottomAnchor, constant: 5),
+            ingredientsCollectionView.heightAnchor.constraint(equalToConstant: ingredientsCollectionViewHeight)
         ]
 
         NSLayoutConstraint.activate(mainConstraints)
-
-        // remove loading view
-        
-//        DispatchQueue.main.async {
-//            for view in self.view.subviews {
-//                view.removeFromSuperview()
-//            }
-//        }
-        
-//        DispatchQueue.main.async {
-//
-//            if (recipe.video != nil) {
-//                // has video
-//                let playButton = UIImage(systemName: "play.rectangle.fill")
-//
-//                let rightButton1 = UIBarButtonItem(image: playButton, style: .plain, target: self, action: #selector(self.openURL(_:)))
-//                rightButton1.tag = 0
-//                self.navigationItem.setRightBarButtonItems([rightButton1], animated: true)
-//            }
-//
-//            if (recipe.website != nil) {
-//                // has webpage or blogpost
-//                let webButton = UIImage(systemName: "safari.fill")
-//
-//                let rightButton2 = UIBarButtonItem(image: webButton, style: .plain, target: self, action: #selector(self.openURL(_:)))
-//                rightButton2.tag = 1
-//
-//                if (self.navigationItem.rightBarButtonItems != nil) {
-//                    self.navigationItem.rightBarButtonItems?.append(rightButton2)
-//                } else {
-//                    self.navigationItem.setRightBarButton(rightButton2, animated: true)
-//                }
-//            }
-//
-//            self.recipeName.text = recipe.name
-//            self.recipeName.sizeToFit()
-//
-//            self.details.text = "\(recipe.category) · \(recipe.area)"
-//            self.directions.text = recipe.instructions
-//
-//            self.ingredientsCollectionView.reloadData()
-//
-//            let height = self.ingredientsCollectionView.collectionViewLayout.collectionViewContentSize.height
-//            self.ingredientsCollectionHeight.constant = height
-//            self.view.setNeedsLayout()
-//
-//            self.setIngredientLoading(false)
-//
-//        }
         
     }
     
@@ -428,7 +388,8 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ingredientCell", for: indexPath) as! IngredientCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? IngredientCell else { return UICollectionViewCell() }
+        print("in cell")
         
         let ingredient = recipe.ingredients[indexPath.row]
         cell.displayData(ingredient, indexPath.row, recipe.ingredients.count)
