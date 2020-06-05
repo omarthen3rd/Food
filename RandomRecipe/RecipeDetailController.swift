@@ -25,9 +25,7 @@ class IngredientCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        contentView.backgroundColor = .tertiarySystemFill
-        
+                
         // ingredient image
         imageView = UIImageView(frame: .zero)
         imageView.contentMode = .scaleAspectFill
@@ -73,7 +71,7 @@ class IngredientCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func displayData(_ ingredient: Ingredient, _ row: Int, _ count: Int) {
+    func displayData(_ ingredient: Ingredient) {
                 
         name.text = ingredient.name
         amount.text = ingredient.amount
@@ -81,14 +79,6 @@ class IngredientCell: UICollectionViewCell {
         
         name.sizeToFit()
         amount.sizeToFit()
-        
-        if (row == 0) {
-            contentView.layer.cornerRadius = 8
-            contentView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-        } else if (row == count - 1) {
-            contentView.layer.cornerRadius = 8
-            contentView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-        }
         
     }
     
@@ -308,7 +298,9 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         layout.minimumInteritemSpacing = 0
         
         ingredientsCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 200, height: 200), collectionViewLayout: layout)
-        ingredientsCollectionView.backgroundColor = .clear
+        ingredientsCollectionView.backgroundColor = .tertiarySystemFill
+        ingredientsCollectionView.layer.cornerRadius = 8
+        ingredientsCollectionView.layer.masksToBounds = true
         ingredientsCollectionView.delegate = self
         ingredientsCollectionView.dataSource = self
         ingredientsCollectionView.register(IngredientCell.self, forCellWithReuseIdentifier: reuseIdentifier)
@@ -438,7 +430,7 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? IngredientCell else { return UICollectionViewCell() }
         
         let ingredient = recipe.ingredients[indexPath.row]
-        cell.displayData(ingredient, indexPath.row, recipe.ingredients.count)
+        cell.displayData(ingredient)
         
         return cell
         
