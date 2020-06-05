@@ -38,13 +38,14 @@ class IngredientCell: UICollectionViewCell {
         // ingredient amount
         amount = UILabel(frame: .zero)
         amount.numberOfLines = 1
-        amount.font = UIFont(name: "NewYork-Light", size: 12)
-        
+        amount.font = UIFont(name: "NewYorkSmall-Regular", size: 12)
         contentView.addSubview(imageView)
         contentView.addSubview(name)
+        contentView.addSubview(amount)
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         name.translatesAutoresizingMaskIntoConstraints = false
+        amount.translatesAutoresizingMaskIntoConstraints = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
         
         // set constraints
@@ -60,7 +61,12 @@ class IngredientCell: UICollectionViewCell {
             name.leadingAnchor.constraint(equalTo: imageView.safeAreaLayoutGuide.trailingAnchor, constant: 10),
             name.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: 10),
             name.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10),
-            name.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: 10),
+            
+            // amount constraints
+            amount.leadingAnchor.constraint(equalTo: imageView.safeAreaLayoutGuide.trailingAnchor, constant: 10),
+            amount.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: 10),
+            amount.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 3),
+            amount.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: 10),
         ]
         
         NSLayoutConstraint.activate(cellConstraints)
@@ -93,14 +99,7 @@ class IngredientCell: UICollectionViewCell {
 
 class RecipeDetailController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    // MARK: - IBOutlets
-    var loadingView: UIView!
-    var imageContainer: UIView!
-    var recipeImage: UIImageView!
-    
-    var directionsHeader: UILabel!
-    var directions: UILabel!
-    
+    // MARK: - Views
     var loadingIndicator: UIActivityIndicatorView!
     
     var scrollView = UIScrollView()
@@ -110,6 +109,8 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
     var recipeDetails: UILabel!
     var ingredientsHeader: UILabel!
     var ingredientsCollectionView: UICollectionView!
+    var directionsHeader: UILabel!
+    var directions: UILabel!
     
     var reuseIdentifier = "ingredientCell"
     
@@ -306,6 +307,21 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         ingredientsCollectionView.register(IngredientCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         ingredientsCollectionView.reloadData()
         
+        // recipe directions header
+        directionsHeader = UILabel(frame: CGRect.zero)
+        directionsHeader.text = "Directions"
+        directionsHeader.font = UIFont(name: "NewYorkSmall-Semibold", size: 19)
+        directionsHeader.textColor = .label
+        directionsHeader.sizeToFit()
+        
+        // recipe directions
+        directions = UILabel(frame: CGRect.zero)
+        directions.text = recipe.instructions
+        directions.font = UIFont(name: "NewYorkSmall-Regular", size: 15)
+        directions.numberOfLines = 0
+        directions.textColor = .label
+        directions.sizeToFit()
+        
         // add all the views
         contentView.addSubview(heroImage)
         contentView.addSubview(buttonStackView)
@@ -313,6 +329,8 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         contentView.addSubview(recipeDetails)
         contentView.addSubview(ingredientsHeader)
         contentView.addSubview(ingredientsCollectionView)
+        contentView.addSubview(directionsHeader)
+        contentView.addSubview(directions)
         
         heroImage.translatesAutoresizingMaskIntoConstraints = false
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -320,6 +338,8 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         recipeDetails.translatesAutoresizingMaskIntoConstraints = false
         ingredientsHeader.translatesAutoresizingMaskIntoConstraints = false
         ingredientsCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        directionsHeader.translatesAutoresizingMaskIntoConstraints = false
+        directions.translatesAutoresizingMaskIntoConstraints = false
                 
         // constraints
         let baseSpacing: CGFloat = 20
@@ -358,7 +378,17 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
             ingredientsCollectionView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: baseSpacing),
             ingredientsCollectionView.topAnchor.constraint(equalTo: ingredientsHeader.bottomAnchor, constant: 10),
             ingredientsCollectionView.heightAnchor.constraint(equalToConstant: ingredientsCollectionViewHeight),
-            ingredientsCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 10)
+            
+            // recipe directions header label
+            directionsHeader.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: baseSpacing * -1),
+            directionsHeader.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: baseSpacing),
+            directionsHeader.topAnchor.constraint(equalTo: ingredientsCollectionView.bottomAnchor, constant: baseSpacing),
+            
+            // recipe directions label
+            directions.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: baseSpacing * -1),
+            directions.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: baseSpacing),
+            directions.topAnchor.constraint(equalTo: directionsHeader.bottomAnchor, constant: baseSpacing),
+            directions.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: -60),
         ]
 
         NSLayoutConstraint.activate(mainConstraints)

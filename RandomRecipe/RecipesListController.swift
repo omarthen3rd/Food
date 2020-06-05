@@ -163,7 +163,7 @@ class RecipesController: UICollectionViewController, UICollectionViewDelegateFlo
         
         let id = recipes[indexPath.row].id
         
-        let vc = storyboard?.instantiateViewController(withIdentifier: "RecipeDetailController") as! RecipeDetailController
+        let vc = RecipeDetailController()
         vc.id = id
 
         self.navigationController?.pushViewController(vc, animated: true)
