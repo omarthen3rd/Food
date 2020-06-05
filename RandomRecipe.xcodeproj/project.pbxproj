@@ -30,15 +30,7 @@
 		565D684522640B470046D326 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 565D684222640B460046D326 /* FontAwesome5_Brands.ttf */; };
 		565D684622640B470046D326 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 565D684322640B460046D326 /* FontAwesome5_Solid.ttf */; };
 		565D6849226413360046D326 /* RecipesListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565D6848226413360046D326 /* RecipesListController.swift */; };
-		565D684B226428EE0046D326 /* UIImageColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565D684A226428EE0046D326 /* UIImageColors.swift */; };
 		565D684D2264CF7E0046D326 /* CategoriesListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565D684C2264CF7E0046D326 /* CategoriesListController.swift */; };
-		565D68582264D52C0046D326 /* ShadowView+BlurProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565D684F2264D52C0046D326 /* ShadowView+BlurProcess.swift */; };
-		565D68592264D52C0046D326 /* UIView+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565D68502264D52C0046D326 /* UIView+Image.swift */; };
-		565D685A2264D52C0046D326 /* UIImage+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565D68512264D52C0046D326 /* UIImage+Size.swift */; };
-		565D685B2264D52C0046D326 /* ShadowView.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 565D68532264D52C0046D326 /* ShadowView.podspec */; };
-		565D685C2264D52C0046D326 /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565D68542264D52C0046D326 /* ShadowView.swift */; };
-		565D685D2264D52C0046D326 /* UIImageEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565D68552264D52C0046D326 /* UIImageEffects.swift */; };
-		565D685E2264D52C0046D326 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565D68562264D52C0046D326 /* UIView+Shadow.swift */; };
 		56AA4A222485DED400CB5FA7 /* NewYorkSmall-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 56AA4A162485DED300CB5FA7 /* NewYorkSmall-MediumItalic.otf */; };
 		56AA4A232485DED400CB5FA7 /* NewYorkSmall-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 56AA4A172485DED300CB5FA7 /* NewYorkSmall-Regular.otf */; };
 		56AA4A242485DED400CB5FA7 /* NewYorkSmall-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 56AA4A182485DED300CB5FA7 /* NewYorkSmall-Semibold.otf */; };
@@ -95,15 +87,7 @@
 		565D684222640B460046D326 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Brands.ttf; sourceTree = "<group>"; };
 		565D684322640B460046D326 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Solid.ttf; sourceTree = "<group>"; };
 		565D6848226413360046D326 /* RecipesListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesListController.swift; sourceTree = "<group>"; };
-		565D684A226428EE0046D326 /* UIImageColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageColors.swift; sourceTree = "<group>"; };
 		565D684C2264CF7E0046D326 /* CategoriesListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesListController.swift; sourceTree = "<group>"; };
-		565D684F2264D52C0046D326 /* ShadowView+BlurProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ShadowView+BlurProcess.swift"; sourceTree = "<group>"; };
-		565D68502264D52C0046D326 /* UIView+Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Image.swift"; sourceTree = "<group>"; };
-		565D68512264D52C0046D326 /* UIImage+Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Size.swift"; sourceTree = "<group>"; };
-		565D68532264D52C0046D326 /* ShadowView.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ShadowView.podspec; sourceTree = "<group>"; };
-		565D68542264D52C0046D326 /* ShadowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
-		565D68552264D52C0046D326 /* UIImageEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageEffects.swift; sourceTree = "<group>"; };
-		565D68562264D52C0046D326 /* UIView+Shadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		56AA4A162485DED300CB5FA7 /* NewYorkSmall-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NewYorkSmall-MediumItalic.otf"; sourceTree = "<group>"; };
 		56AA4A172485DED300CB5FA7 /* NewYorkSmall-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NewYorkSmall-Regular.otf"; sourceTree = "<group>"; };
 		56AA4A182485DED300CB5FA7 /* NewYorkSmall-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NewYorkSmall-Semibold.otf"; sourceTree = "<group>"; };
@@ -244,35 +228,11 @@
 		565D6847226412220046D326 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				565D684E2264D52C0046D326 /* ShadowView */,
-				565D684A226428EE0046D326 /* UIImageColors.swift */,
 				565D681E2263DFF40046D326 /* Extensions.swift */,
 				565D68032263BF850046D326 /* Recipe.swift */,
 				565D68222263EAD60046D326 /* Category.swift */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		565D684E2264D52C0046D326 /* ShadowView */ = {
-			isa = PBXGroup;
-			children = (
-				565D684F2264D52C0046D326 /* ShadowView+BlurProcess.swift */,
-				565D68502264D52C0046D326 /* UIView+Image.swift */,
-				565D68512264D52C0046D326 /* UIImage+Size.swift */,
-				565D68522264D52C0046D326 /* 1.3 */,
-				565D68542264D52C0046D326 /* ShadowView.swift */,
-				565D68552264D52C0046D326 /* UIImageEffects.swift */,
-				565D68562264D52C0046D326 /* UIView+Shadow.swift */,
-			);
-			path = ShadowView;
-			sourceTree = "<group>";
-		};
-		565D68522264D52C0046D326 /* 1.3 */ = {
-			isa = PBXGroup;
-			children = (
-				565D68532264D52C0046D326 /* ShadowView.podspec */,
-			);
-			path = 1.3;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -375,7 +335,6 @@
 				56AA4A272485DED400CB5FA7 /* NewYorkSmall-Black.otf in Resources */,
 				565D68152263D0890046D326 /* Merriweather-Italic.ttf in Resources */,
 				565D68132263D0890046D326 /* Merriweather-Regular.ttf in Resources */,
-				565D685B2264D52C0046D326 /* ShadowView.podspec in Resources */,
 				565D684522640B470046D326 /* FontAwesome5_Brands.ttf in Resources */,
 				56AA4A232485DED400CB5FA7 /* NewYorkSmall-Regular.otf in Resources */,
 				565D68172263D0890046D326 /* Merriweather-LightItalic.ttf in Resources */,
@@ -463,14 +422,7 @@
 				565D6849226413360046D326 /* RecipesListController.swift in Sources */,
 				565D68042263BF850046D326 /* Recipe.swift in Sources */,
 				565D684D2264CF7E0046D326 /* CategoriesListController.swift in Sources */,
-				565D685A2264D52C0046D326 /* UIImage+Size.swift in Sources */,
-				565D685D2264D52C0046D326 /* UIImageEffects.swift in Sources */,
-				565D68592264D52C0046D326 /* UIView+Image.swift in Sources */,
-				565D685C2264D52C0046D326 /* ShadowView.swift in Sources */,
-				565D685E2264D52C0046D326 /* UIView+Shadow.swift in Sources */,
-				565D684B226428EE0046D326 /* UIImageColors.swift in Sources */,
 				565D67E62263BEA60046D326 /* RecipeDetailController.swift in Sources */,
-				565D68582264D52C0046D326 /* ShadowView+BlurProcess.swift in Sources */,
 				565D67E42263BEA60046D326 /* AppDelegate.swift in Sources */,
 				565D68062263C7430046D326 /* SwiftyJSON.swift in Sources */,
 				565D68232263EAD60046D326 /* Category.swift in Sources */,
