@@ -30,7 +30,7 @@ class IngredientCell: UICollectionViewCell {
         
         // ingredient image
         imageView = UIImageView(frame: .zero)
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         
         // ingredient name
         name = UILabel(frame: .zero)
@@ -43,9 +43,10 @@ class IngredientCell: UICollectionViewCell {
         amount.font = UIFont(name: "NewYork-Light", size: 12)
         
         contentView.addSubview(imageView)
-//        contentView.addSubview(name)
+        contentView.addSubview(name)
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        name.translatesAutoresizingMaskIntoConstraints = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
         
         // set constraints
@@ -53,15 +54,15 @@ class IngredientCell: UICollectionViewCell {
             // image constraints
             imageView.heightAnchor.constraint(equalToConstant: 40),
             imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 1),
-            imageView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            imageView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
             imageView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10),
             imageView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: 10),
             
             // name constraints
-//            name.trailingAnchor.constraint(equalTo: imageView.safeAreaLayoutGuide.leadingAnchor, constant: -10),
-//            name.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-//            name.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10),
-//            name.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: 10),
+            name.leadingAnchor.constraint(equalTo: imageView.safeAreaLayoutGuide.trailingAnchor, constant: 10),
+            name.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: 10),
+            name.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10),
+            name.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: 10),
         ]
         
         NSLayoutConstraint.activate(cellConstraints)
@@ -156,10 +157,8 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
-        print("scrollView \(scrollView.bounds.height)")
-        print("contentView \(contentView.bounds.height)")
-        scrollView.contentSize = CGSize(width: contentView.bounds.width, height: 900)
+        
+        scrollView.contentSize = CGSize(width: contentView.bounds.width, height: contentView.bounds.height)
     }
     
     func setLoading(_ loading: Bool) {
@@ -284,6 +283,7 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         recipeName.text = recipe.name
         recipeName.font = UIFont(name: "NewYorkSmall-Bold", size: 25)
         recipeName.textColor = .label
+        recipeName.numberOfLines = 0
         recipeName.sizeToFit()
         
         // recipe details
@@ -302,8 +302,7 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         
         // ingredients collectionview
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 40, height: 60)
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 60, height: 60)
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
@@ -365,8 +364,9 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
             // recipe ingredients collectionview
             ingredientsCollectionView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: baseSpacing * -1),
             ingredientsCollectionView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: baseSpacing),
-            ingredientsCollectionView.topAnchor.constraint(equalTo: ingredientsHeader.bottomAnchor, constant: 5),
-            ingredientsCollectionView.heightAnchor.constraint(equalToConstant: ingredientsCollectionViewHeight)
+            ingredientsCollectionView.topAnchor.constraint(equalTo: ingredientsHeader.bottomAnchor, constant: 10),
+            ingredientsCollectionView.heightAnchor.constraint(equalToConstant: ingredientsCollectionViewHeight),
+            ingredientsCollectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 10)
         ]
 
         NSLayoutConstraint.activate(mainConstraints)
@@ -445,7 +445,7 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width - 40, height: 60)
+        return CGSize(width: collectionView.bounds.width, height: 60)
     }
     
     // MARK: - Data handler function

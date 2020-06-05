@@ -16,14 +16,6 @@ class RecipeCell: UICollectionViewCell {
     @IBOutlet var img: UIImageView!
     @IBOutlet var name: UILabel!
     
-    private var shadowLayer: CAShapeLayer!
-    
-    lazy var width: NSLayoutConstraint = {
-        let width = contentView.widthAnchor.constraint(equalToConstant: bounds.size.width)
-        width.isActive = true
-        return width
-    }()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -59,7 +51,6 @@ class RecipeCell: UICollectionViewCell {
     }
     
     override func systemLayoutSizeFitting(_ targetSize: CGSize, withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority, verticalFittingPriority: UILayoutPriority) -> CGSize {
-        width.constant = targetSize.width
         let size = contentView.systemLayoutSizeFitting(CGSize(width: targetSize.width, height: 1), withHorizontalFittingPriority: .required, verticalFittingPriority: verticalFittingPriority)
 
         return size
