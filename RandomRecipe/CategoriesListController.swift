@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import SDWebImage
 
 private let reuseIdentifier = "categoryCell"
 
 class CategoryCollectionCell: UICollectionViewCell {
     
-    @IBOutlet var name: UILabel!
+    var name: UILabel!
+    var catImage: UIImageView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,26 +26,56 @@ class CategoryCollectionCell: UICollectionViewCell {
         commonInit()
     }
     
-    func displayData(_ recipe: Category) {
-        name?.text = recipe.name
+    func displayData(_ category: Category) {
+        name?.text = category.name
+        name.sizeToFit()
+        
+        guard let image = UIImage(named: "\(category.name.lowercased())") else { return }
+        catImage.image = image
+//        imageView.sd_setImage(with: recipe.image, placeholderImage: placeholder, options: SDWebImageOptions.scaleDownLargeImages, completed: nil)
     }
     
     func commonInit() {
         
-        
-        
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        // god bless this person: https://stackoverflow.com/a/50366615/6871025
-        
         contentView.backgroundColor = UIColor.secondarySystemBackground
         contentView.layer.cornerRadius = 8
-        contentView.layer.borderWidth = 1.0
-        contentView.layer.borderColor = UIColor.clear.cgColor
         contentView.layer.masksToBounds = true
+        
+        name = UILabel(frame: .zero)
+        name.font = UIFont(name: "NewYorkSmall-Bold", size: 21)
+        name.numberOfLines = 1
+        
+        catImage = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        catImage.contentMode = .scaleAspectFit
+        
+        name.translatesAutoresizingMaskIntoConstraints = false
+        catImage.translatesAutoresizingMaskIntoConstraints = false
+        
+        contentView.addSubview(name)
+        contentView.addSubview(catImage)
+        
+        // constraints
+        
+        let spacing: CGFloat = 10
+        
+        let mainConstraints: [NSLayoutConstraint] = [
+            // name label
+            name.topAnchor.constraint(equalTo: contentView.topAnchor, constant: spacing),
+            name.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: spacing * -1),
+            name.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: spacing),
+            
+            // image view
+            catImage.leadingAnchor.constraint(equalTo: name.trailingAnchor, constant: spacing),
+            catImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: spacing * -1),
+            catImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: spacing),
+            catImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: spacing * -1),
+            catImage.heightAnchor.constraint(equalToConstant: 50),
+            catImage.widthAnchor.constraint(equalTo: catImage.heightAnchor, multiplier: 1)
+            
+        ]
+        
+        NSLayoutConstraint.activate(mainConstraints)
+        
     }
     
 }
@@ -62,10 +94,12 @@ class CategoriesCollectionController: UICollectionViewController, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "NewYorkSmall-Black", size: 30)!]
+        
         let spacing: CGFloat = 15
         
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: (UIScreen.main.bounds.width - (spacing * 2)), height: 60)
+        layout.itemSize = CGSize(width: (UIScreen.main.bounds.width - (spacing * 2)), height: 70)
         layout.sectionInset = UIEdgeInsets(top: spacing, left: 0, bottom: spacing, right: 0)
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = spacing
@@ -73,9 +107,7 @@ class CategoriesCollectionController: UICollectionViewController, UICollectionVi
         
         collectionView.collectionViewLayout = layout
         collectionView.backgroundColor = UIColor.systemBackground
-        
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Merriweather-Black", size: 17)!]
-        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Merriweather-Black", size: 30)!]
+        collectionView.register(CategoryCollectionCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
         getCategories()
 
@@ -97,15 +129,9 @@ class CategoriesCollectionController: UICollectionViewController, UICollectionVi
                 let id = category["idCategory"].stringValue
                 let name = category["strCategory"].stringValue
                 let description = category["strCategoryDescription"].stringValue
-//                guard let imageURL = URL(string: category["strCategoryThumb"].stringValue) else { return }
-//                self.getData(from: imageURL, completion: { (data, response, error) in
-//                    guard let data = data else { return }
-//                    guard let image = UIImage(data: data) else { return }
-//                    let newCategory = Category(id: id, image: image, name: name, description: description)
-//                    self.categories.append(newCategory)
-//                })
-                let image = UIImage(named: "placeholder")
-                let newCategory = Category(id: id, image: image!, name: name, description: description)
+                let imageURL = URL(string: category["strCategoryThumb"].stringValue)
+                print(category["strCategoryThumb"].stringValue)
+                let newCategory = Category(id: id, image: imageURL, name: name, description: description)
                 self.categories.append(newCategory)
             }
             
@@ -136,7 +162,7 @@ class CategoriesCollectionController: UICollectionViewController, UICollectionVi
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CategoryCollectionCell
     
         let category = categories[indexPath.row]
-        cell.name?.text = category.name
+        cell.displayData(category)
     
         return cell
     }
@@ -169,7 +195,7 @@ class CategoriesCollectionController: UICollectionViewController, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (UIScreen.main.bounds.width - 30), height: 60)
+        return CGSize(width: (UIScreen.main.bounds.width - 30), height: 70)
     }
     
     // MARK: - Data handler function

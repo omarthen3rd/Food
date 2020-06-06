@@ -28,6 +28,7 @@ class IngredientCell: UICollectionViewCell {
         // ingredient image
         imageView = UIImageView(frame: .zero)
         imageView.contentMode = .scaleAspectFill
+        imageView.tintColor = .label
         
         // ingredient name
         name = UILabel(frame: .zero)
@@ -71,7 +72,8 @@ class IngredientCell: UICollectionViewCell {
         name.sizeToFit()
         
         guard let placeholder = UIImage(named: "placeholder")?.withTintColor(.label) else { return }
-        imageView.sd_setImage(with: ingredient.image, placeholderImage: placeholder, options: SDWebImageOptions.scaleDownLargeImages, context: nil)
+        imageView.image = placeholder
+//        imageView.sd_setImage(with: ingredient.image, placeholderImage: placeholder, options: SDWebImageOptions.scaleDownLargeImages, context: nil)
         
     }
     
