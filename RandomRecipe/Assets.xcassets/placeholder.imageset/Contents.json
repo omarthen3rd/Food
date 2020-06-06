@@ -1,23 +1,23 @@
 {
   "images" : [
     {
+      "filename" : "placeholder.pdf",
       "idiom" : "universal",
-      "filename" : "placeholderImage.pdf",
       "scale" : "1x"
     },
     {
+      "filename" : "placeholder-1.pdf",
       "idiom" : "universal",
-      "filename" : "placeholderImage-1.pdf",
       "scale" : "2x"
     },
     {
+      "filename" : "placeholder-2.pdf",
       "idiom" : "universal",
-      "filename" : "placeholderImage-2.pdf",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

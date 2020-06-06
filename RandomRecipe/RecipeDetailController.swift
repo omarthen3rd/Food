@@ -21,7 +21,6 @@ class IngredientCell: UICollectionViewCell {
     
     var imageView: UIImageView!
     var name: UILabel!
-    var amount: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,20 +31,14 @@ class IngredientCell: UICollectionViewCell {
         
         // ingredient name
         name = UILabel(frame: .zero)
-        name.numberOfLines = 1
-        name.font = UIFont(name: "NewYorkSmall-Regular", size: 16)
+        name.numberOfLines = 0
+        name.font = UIFont(name: "NewYorkSmall-Regular", size: 17)
 
-        // ingredient amount
-        amount = UILabel(frame: .zero)
-        amount.numberOfLines = 1
-        amount.font = UIFont(name: "NewYorkSmall-Regular", size: 12)
         contentView.addSubview(imageView)
         contentView.addSubview(name)
-        contentView.addSubview(amount)
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         name.translatesAutoresizingMaskIntoConstraints = false
-        amount.translatesAutoresizingMaskIntoConstraints = false
         contentView.translatesAutoresizingMaskIntoConstraints = false
         
         // set constraints
@@ -53,20 +46,15 @@ class IngredientCell: UICollectionViewCell {
             // image constraints
             imageView.heightAnchor.constraint(equalToConstant: 40),
             imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 1),
-            imageView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            imageView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10),
-            imageView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: 10),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 10),
             
             // name constraints
-            name.leadingAnchor.constraint(equalTo: imageView.safeAreaLayoutGuide.trailingAnchor, constant: 10),
-            name.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: 10),
-            name.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10),
-            
-            // amount constraints
-            amount.leadingAnchor.constraint(equalTo: imageView.safeAreaLayoutGuide.trailingAnchor, constant: 10),
-            amount.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: 10),
-            amount.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 3),
-            amount.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor, constant: 10),
+            name.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 10),
+            name.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 20),
+            name.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            name.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 10),
         ]
         
         NSLayoutConstraint.activate(cellConstraints)
@@ -79,12 +67,11 @@ class IngredientCell: UICollectionViewCell {
     
     func displayData(_ ingredient: Ingredient) {
                 
-        name.text = ingredient.name
-        amount.text = ingredient.amount
-        imageView.sd_setImage(with: ingredient.image, placeholderImage: UIImage(named: "placeholder")!, options: SDWebImageOptions.scaleDownLargeImages, context: nil)
-        
+        name.text = "\(ingredient.amount) \(ingredient.name)"
         name.sizeToFit()
-        amount.sizeToFit()
+        
+        guard let placeholder = UIImage(named: "placeholder")?.withTintColor(.label) else { return }
+        imageView.sd_setImage(with: ingredient.image, placeholderImage: placeholder, options: SDWebImageOptions.scaleDownLargeImages, context: nil)
         
     }
     
@@ -179,6 +166,7 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         loadingIndicator.center = view.center
         loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
 
+        view.backgroundColor = .systemBackground
         view.addSubview(loadingIndicator)
         view.layoutSubviews()
         
@@ -250,6 +238,8 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
             playButton.layer.cornerRadius = 8
             playButton.setTitle(" Watch", for: [])
             playButton.setTitleColor(.label, for: [])
+            playButton.addTarget(self, action: #selector(openURL(_:)), for: .touchUpInside)
+            playButton.tag = 0
             
             buttonStackView.addArrangedSubview(playButton)
             playButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
@@ -264,6 +254,8 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
             webButton.layer.cornerRadius = 8
             webButton.setTitle(" Read", for: [])
             webButton.setTitleColor(.label, for: [])
+            webButton.addTarget(self, action: #selector(openURL(_:)), for: .touchUpInside)
+            webButton.tag = 1
             
             buttonStackView.addArrangedSubview(webButton)
             webButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
