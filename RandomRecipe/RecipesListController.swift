@@ -42,7 +42,7 @@ class RecipeCell: UICollectionViewCell {
         
         // god bless this person: https://stackoverflow.com/a/50366615/6871025
         
-        contentView.backgroundColor = .tertiarySystemFill
+        contentView.backgroundColor = .tertiarySystemBackground
         contentView.layer.cornerRadius = 8
         contentView.layer.borderWidth = 1.0
         contentView.layer.borderColor = UIColor.clear.cgColor
@@ -96,7 +96,7 @@ class RecipesController: UICollectionViewController, UICollectionViewDelegateFlo
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.collectionViewLayout = layout
-        collectionView.backgroundColor = UIColor.systemBackground
+        collectionView.backgroundColor = .secondarySystemBackground
         
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Merriweather-Black", size: 17)!]
         self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Merriweather-Black", size: 30)!]

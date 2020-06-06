@@ -72,8 +72,7 @@ class IngredientCell: UICollectionViewCell {
         name.sizeToFit()
         
         guard let placeholder = UIImage(named: "placeholder")?.withTintColor(.label) else { return }
-        imageView.image = placeholder
-//        imageView.sd_setImage(with: ingredient.image, placeholderImage: placeholder, options: SDWebImageOptions.scaleDownLargeImages, context: nil)
+        imageView.sd_setImage(with: ingredient.image, placeholderImage: placeholder, options: SDWebImageOptions.scaleDownLargeImages, context: nil)
         
     }
     
@@ -168,7 +167,7 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         loadingIndicator.center = view.center
         loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
 
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .secondarySystemBackground
         view.addSubview(loadingIndicator)
         view.layoutSubviews()
         
@@ -177,7 +176,7 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         
     }
     
-    @objc func openURL(_ button: UIBarButtonItem) {
+    @objc func openURL(_ button: UIButton) {
         
         if button.tag == 0 {
             // video
@@ -196,7 +195,7 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         loadingIndicator.removeFromSuperview()
         
         // start creating views
-        scrollView.backgroundColor = .systemBackground
+        scrollView.backgroundColor = .secondarySystemBackground
         scrollView.isScrollEnabled = true
         
         contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -231,15 +230,16 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         buttonStackView.distribution = .fillEqually
         buttonStackView.spacing = 25
         
+        let symbolConfig = UIImage.SymbolConfiguration(pointSize: 22, weight: .medium, scale: .medium)
         if (recipe.video != nil) {
-            let playButtonImage = UIImage(systemName: "play.rectangle.fill")
+            let playButtonImage = UIImage(systemName: "play.rectangle.fill", withConfiguration: symbolConfig)
             let playButton = UIButton(frame: CGRect.zero)
             playButton.setImage(playButtonImage, for: [])
             playButton.imageView?.tintColor = .label
-            playButton.backgroundColor = .secondarySystemBackground
+            playButton.backgroundColor = .tertiarySystemBackground
             playButton.layer.cornerRadius = 8
-            playButton.setTitle(" Watch", for: [])
-            playButton.setTitleColor(.label, for: [])
+//            playButton.setTitle(" Watch", for: [])
+//            playButton.setTitleColor(.label, for: [])
             playButton.addTarget(self, action: #selector(openURL(_:)), for: .touchUpInside)
             playButton.tag = 0
             
@@ -248,14 +248,14 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         }
         
         if (recipe.website != nil) {
-            let webButtonImage = UIImage(systemName: "safari.fill")
+            let webButtonImage = UIImage(systemName: "safari.fill", withConfiguration: symbolConfig)
             let webButton = UIButton(frame: CGRect.zero)
             webButton.setImage(webButtonImage, for: [])
             webButton.imageView?.tintColor = .label
-            webButton.backgroundColor = .secondarySystemBackground
+            webButton.backgroundColor = .tertiarySystemBackground
             webButton.layer.cornerRadius = 8
-            webButton.setTitle(" Read", for: [])
-            webButton.setTitleColor(.label, for: [])
+//            webButton.setTitle(" Read", for: [])
+//            webButton.setTitleColor(.label, for: [])
             webButton.addTarget(self, action: #selector(openURL(_:)), for: .touchUpInside)
             webButton.tag = 1
             
@@ -293,7 +293,7 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         layout.minimumInteritemSpacing = 0
         
         ingredientsCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 200, height: 200), collectionViewLayout: layout)
-        ingredientsCollectionView.backgroundColor = .tertiarySystemFill
+        ingredientsCollectionView.backgroundColor = .tertiarySystemBackground
         ingredientsCollectionView.layer.cornerRadius = 8
         ingredientsCollectionView.layer.masksToBounds = true
         ingredientsCollectionView.delegate = self

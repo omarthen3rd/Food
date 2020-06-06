@@ -37,7 +37,7 @@ class CategoryCollectionCell: UICollectionViewCell {
     
     func commonInit() {
         
-        contentView.backgroundColor = UIColor.secondarySystemBackground
+        contentView.backgroundColor = UIColor.tertiarySystemBackground
         contentView.layer.cornerRadius = 8
         contentView.layer.masksToBounds = true
         
@@ -106,7 +106,7 @@ class CategoriesCollectionController: UICollectionViewController, UICollectionVi
         layout.minimumInteritemSpacing = spacing
         
         collectionView.collectionViewLayout = layout
-        collectionView.backgroundColor = UIColor.systemBackground
+        collectionView.backgroundColor = UIColor.secondarySystemBackground
         collectionView.register(CategoryCollectionCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
         getCategories()
