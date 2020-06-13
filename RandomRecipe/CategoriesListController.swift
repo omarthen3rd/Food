@@ -130,7 +130,6 @@ class CategoriesCollectionController: UICollectionViewController, UICollectionVi
                 let name = category["strCategory"].stringValue
                 let description = category["strCategoryDescription"].stringValue
                 let imageURL = URL(string: category["strCategoryThumb"].stringValue)
-                print(category["strCategoryThumb"].stringValue)
                 let newCategory = Category(id: id, image: imageURL, name: name, description: description)
                 self.categories.append(newCategory)
             }

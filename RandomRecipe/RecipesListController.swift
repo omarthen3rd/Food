@@ -69,10 +69,23 @@ class RecipesController: UICollectionViewController, UICollectionViewDelegateFlo
         }
     }
     
+    var filteredRecipes = [RecipePreview]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
     var category = "" {
         didSet {
             getRecipes(category)
         }
+    }
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    var isSearching: Bool {
+        return searchController.isActive && searchController.searchBar.text?.count ?? 0 > 0
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,8 +111,15 @@ class RecipesController: UICollectionViewController, UICollectionViewDelegateFlo
         collectionView.collectionViewLayout = layout
         collectionView.backgroundColor = .secondarySystemBackground
         
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Merriweather-Black", size: 17)!]
-        self.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Merriweather-Black", size: 30)!]
+        searchController.searchResultsUpdater = self
+        searchController.delegate = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController = searchController
+        
+        definesPresentationContext = true
+        
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Merriweather-Black", size: 17)!]
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Merriweather-Black", size: 30)!]
 
     }
     
@@ -147,13 +167,13 @@ class RecipesController: UICollectionViewController, UICollectionViewDelegateFlo
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return recipes.count
+        return isSearching ? filteredRecipes.count : recipes.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! RecipeCell
-    
-        let recipe = recipes[indexPath.row]
+        
+        let recipe = isSearching ? filteredRecipes[indexPath.row] : recipes[indexPath.row]
         cell.displayData(recipe)
         
         return cell
@@ -161,7 +181,7 @@ class RecipesController: UICollectionViewController, UICollectionViewDelegateFlo
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let id = recipes[indexPath.row].id
+        let id = isSearching ? filteredRecipes[indexPath.row].id : recipes[indexPath.row].id
         
         let vc = RecipeDetailController()
         vc.id = id
@@ -192,4 +212,26 @@ class RecipesController: UICollectionViewController, UICollectionViewDelegateFlo
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
     }
 
+}
+
+extension RecipesController: UISearchControllerDelegate, UISearchResultsUpdating {
+    
+    func filterRecipesWith(_ text: String) {
+        
+        filteredRecipes = recipes.filter({ (recipe) -> Bool in
+            return recipe.name.lowercased().contains(text.lowercased())
+        })
+        
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+        
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else { return }
+        filterRecipesWith(text)
+    }
+    
+    
 }
