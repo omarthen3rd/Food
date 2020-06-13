@@ -167,7 +167,7 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         loadingIndicator.center = view.center
         loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
 
-        view.backgroundColor = .secondarySystemBackground
+        view.backgroundColor = .systemBackground
         view.addSubview(loadingIndicator)
         view.layoutSubviews()
         
@@ -195,7 +195,7 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         loadingIndicator.removeFromSuperview()
         
         // start creating views
-        scrollView.backgroundColor = .secondarySystemBackground
+        scrollView.backgroundColor = .systemBackground
         scrollView.isScrollEnabled = true
         
         contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -236,7 +236,7 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
             let playButton = UIButton(frame: CGRect.zero)
             playButton.setImage(playButtonImage, for: [])
             playButton.imageView?.tintColor = .label
-            playButton.backgroundColor = .tertiarySystemBackground
+            playButton.backgroundColor = .secondarySystemBackground
             playButton.layer.cornerRadius = 8
 //            playButton.setTitle(" Watch", for: [])
 //            playButton.setTitleColor(.label, for: [])
@@ -252,7 +252,7 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
             let webButton = UIButton(frame: CGRect.zero)
             webButton.setImage(webButtonImage, for: [])
             webButton.imageView?.tintColor = .label
-            webButton.backgroundColor = .tertiarySystemBackground
+            webButton.backgroundColor = .secondarySystemBackground
             webButton.layer.cornerRadius = 8
 //            webButton.setTitle(" Read", for: [])
 //            webButton.setTitleColor(.label, for: [])
@@ -293,7 +293,7 @@ class RecipeDetailController: UIViewController, UICollectionViewDelegate, UIColl
         layout.minimumInteritemSpacing = 0
         
         ingredientsCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 200, height: 200), collectionViewLayout: layout)
-        ingredientsCollectionView.backgroundColor = .tertiarySystemBackground
+        ingredientsCollectionView.backgroundColor = .secondarySystemBackground
         ingredientsCollectionView.layer.cornerRadius = 8
         ingredientsCollectionView.layer.masksToBounds = true
         ingredientsCollectionView.delegate = self
